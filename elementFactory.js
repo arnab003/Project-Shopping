@@ -1,13 +1,6 @@
-function elementFactory()
+(function elementFactory()
 {
-/*
-var KEY = "";
-(function()
-{
-KEY = core.getKeys("suvradip");
-core.setLib(KEY, "KEYNAME", "FUNCTION_NAME");
-})();
-*/
+
 
 function createElement(tagName, parentElementObj, attrObj, styleObj, eventObj, label)
 {
@@ -140,34 +133,34 @@ function test()
 }
 
 
-var testData1=[
-{
-	name:"grocery"
-},
-{
-	name:"beverages"
-}];
+// var testData1=[
+// {
+// 	name:"grocery"
+// },
+// {
+// 	name:"beverages"
+// }];
 
 
-var testData2=[
-{
-id:1,
-name:"rice"
-},
-{
-id:2,
-name:"veges"
-}];
+// var testData2=[
+// {
+// id:1,
+// name:"rice"
+// },
+// {
+// id:2,
+// name:"veges"
+// }];
 
 
-createOptions(1,testData1,{change: function (){console.log('Items');}});
+// createOptions(1,testData1,{change: function (){console.log('Items');}});
 
 
-productOptionData(1,"rice", 100);
+// productOptionData(1,"rice", 100);
 
-createOptions(2,testData2,{change: function (){console.log('test');}});
+// createOptions(2,testData2,{change: function (){console.log('test');}});
 
-AddDataEventLister("add",test);
+// AddDataEventLister("add",test);
 
 
 function cartTemplate()
@@ -242,21 +235,30 @@ function cartTemplate()
 }//end of cart
 
 
-var  a = new cartTemplate();
+/*var  a = new cartTemplate();
 a.groceryItemDetails(1,"rice",100,5,500);
 a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryTextboxes(5,2, 700);
-
 a.beverageItemDetails(1,"rice",100,5,500);
 a.beverageItemDetails(2,"vages",20,5,100);
 a.beverageItemDetails(2,"vages",20,5,100);
-a.beverageTextboxes(5,2, 700);
+a.beverageTextboxes(5,2, 700);*/
+
+var  carttemplate= new cartTemplate();
+var KEY = "";
+(function()
+{
+KEY = core.getKeys("suvradip");
+var out=core.setLib(KEY, "cartTemplate", carttemplate);
+core.setLib(KEY, "createOptions", createOptions);
+core.setLib(KEY, "productOptionData", productOptionData);			
+console.log(out);
+})();
 
 
 
+})();//end
 
-}//end
 
-
-elementFactory();
+/*elementFactory();*/
