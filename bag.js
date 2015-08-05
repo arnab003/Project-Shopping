@@ -1,22 +1,35 @@
+
+var groceryBag = new bag();
+var beverageBag = new bag();
+/*if(document.getElementById("drop2").options[document.getElementById("drop2").selectedIndex].value == 'grocery'){
+	AddDataEventLister("drop2",groceryBag.change);
+	AddDataEventLister("add",groceryBag.add);
+}
+else{
+	AddDataEventLister("drop2",beverageBag.change);
+	AddDataEventLister("add",beverageBag.add);
+}*/
+var obj= {
+	"grocery": groceryBag.selectedData,
+	"bev" : beverageBag.selectedData
+};
+
 function bag()
 {
-	selectedData = []; 
-
-/*	this.getSum = function(){
-		for()
-	}*/
+	this.selectedData = []; 
 
 	this.add= function()
 	{
 		var flag=0;
-		var id = document.getElementById("drop").options[document.getElementById("drop").selectedIndex].value;
-
-		for(var keys in selectedData)
+		//var id = document.getElementById("drop2").options[document.getElementById("drop2").selectedIndex].value;
+		id = document.getElementById("id").value;
+		
+		for(var keys in this.selectedData)
 		{
-			if(selectedData[keys].id == id)
+			if(this.selectedData[keys].id == id)
 			{
+				this.selectedData[keys].quantity = document.getElementById("qty").value; 
 				flag=1;
-				selectedData[keys].quantity = document.getElementById("Qty").value; 
 			}
 		}
 
@@ -24,38 +37,33 @@ function bag()
 		{
 			var newData = {};
 			newData.id= id;
-			newData.name = getItemById(id);
-			newData.price = getItemById(id);
+			//newData.name = getItemById(id);
+			newData.name = document.getElementById("name").value;
+
+			//newData.price = getItemById(id);
+			newData.price = document.getElementById("price").value;
+
 			newData.quantity = document.getElementById("qty").value;
-			selectedData.push(newData);
+			this.selectedData.push(newData);
 		}
 
-		addBagInCart(selectedData);
-
+		//addBagInCart(obj);
+		console.log(obj);
 	}
 
 	this.change = function()
 	{
-		var id = document.getElementById("drop").options[document.getElementById("drop").selectedIndex].value;
+		var id = document.getElementById("drop2").options[document.getElementById("drop2").selectedIndex].value;
 		var flag = 0;	
 		for(var keys in selectedData)
 		{
 			if(selectedData[keys].id == id)
 			{
-				flag=1;
 				document.getElementById("qty").value = selectedData[keys].quantity; 
 			}
 		}
 
-		if(flag === 0)
-		{
-			quantity = 0;
-		}
-
-		productOptionData(id,getItemById("item_id").name,getItemById("item_id").price,quantity);
+		
 	}
 }
 
-var groceryBag = new bag();
-
-var beverageBag = new bag();
