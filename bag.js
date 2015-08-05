@@ -13,14 +13,14 @@ function bag()
 
 		for(var keys in selectedData)
 		{
-			if(selectedData[keys].id === id)
+			if(selectedData[keys].id == id)
 			{
 				flag=1;
 				selectedData[keys].quantity = document.getElementById("Qty").value; 
 			}
 		}
 
-		if(flag === 0)
+		if(flag == 0)
 		{
 			var newData = {};
 			newData.id= id;
@@ -40,10 +40,10 @@ function bag()
 		var flag = 0;	
 		for(var keys in selectedData)
 		{
-			if(selectedData[keys].id === id)
+			if(selectedData[keys].id == id)
 			{
 				flag=1;
-				selectedData[keys].quantity = document.getElementById("qty").value; 
+				document.getElementById("qty").value = selectedData[keys].quantity; 
 			}
 		}
 
