@@ -170,7 +170,7 @@ createOptions(2,testData2,{change: function (){console.log('test');}});
 AddDataEventLister("add",test);
 
 
-function cart()
+function cartTemplate()
 {
 	var cart = createElement("div", mainContainer, {}, {marginLeft:"60%" ,width:"40%", height:"auto", border:"1px solid"} );
 	createElement("div", cart, {}, {}, {}, "Grocery");
@@ -182,9 +182,9 @@ function cart()
 	createElement("span", gLabel, {}, {marginLeft:"8%"}, {}, "Amount");
 
 
-	var groceryData	= createElement("div", cart, {}, {}, {} );
-	
-
+	var groceryData	= createElement("div", cart, {}, {borderBottom:"2px solid"}, {} );
+	var beverageData	= createElement("div", cart, {}, {}, {} );
+	createElement("div", beverageData, {}, {}, {}, "Beverage");
 	return {
 
 		groceryItemDetails: function(Id, Name, Price, Qty, Amount)
@@ -196,17 +196,62 @@ function cart()
 								createElement("span", gdata, {}, {marginLeft:"12%"}, {}, Qty );
 								createElement("span", gdata, {}, {marginLeft:"12%"}, {}, Amount );
 									
-							}
+							},
+
+		groceryTextboxes: function(discount, tax, totalAmount)
+							{
+								createElement("span", groceryData, {}, {}, {}, "Discount(%)" );	
+								createElement("input", groceryData,{type:"text", readOnly:"true", value:discount }, {width:"4em"}, {} );
+
+								createElement("span", groceryData, {}, {}, {}, "Tax(%)" );
+								createElement("input", groceryData, {type:"text", readOnly:"true", value:tax }, {width:"4em"}, {} );
+
+								createElement("span", groceryData, {}, {}, {}, "Amount(Rs.)" );
+								createElement("input", groceryData, {type:"text", readOnly:"true", value:totalAmount }, {width:"4em"}, {} );		
+							},					
+		beverageItemDetails: function(Id, Name, Price, Qty, Amount)
+							{
+								var bdata= createElement("div", beverageData, {}, {}, {});
+								createElement("span", bdata, {}, {marginLeft:"12%"}, {}, Id );
+								createElement("span", bdata, {}, {marginLeft:"10%"}, {}, Name );
+								createElement("span", bdata, {}, {marginLeft:"10%"}, {}, Price );
+								createElement("span", bdata, {}, {marginLeft:"12%"}, {}, Qty );
+								createElement("span", bdata, {}, {marginLeft:"12%"}, {}, Amount );
+									
+							},
+
+		beverageTextboxes: function(discount, tax, totalAmount)
+							{
+								createElement("span", beverageData, {}, {}, {}, "Discount(%)" );	
+								createElement("input", beverageData,{type:"text", readOnly:"true", value:discount }, {width:"4em"}, {} );
+
+								createElement("span", beverageData, {}, {}, {}, "Tax(%)" );
+								createElement("input", beverageData, {type:"text", readOnly:"true", value:tax }, {width:"4em"}, {} );
+
+								createElement("span", beverageData, {}, {}, {}, "Amount(Rs.)" );
+								createElement("input", beverageData, {type:"text", readOnly:"true", value:totalAmount }, {width:"4em"}, {} );		
+							},									
+
+
+
+
+
+
 	};
 
-}
+}//end of cart
 
 
-var  a = new cart();
+var  a = new cartTemplate();
 a.groceryItemDetails(1,"rice",100,5,500);
 a.groceryItemDetails(2,"vages",20,5,100);
+a.groceryItemDetails(2,"vages",20,5,100);
+a.groceryTextboxes(5,2, 700);
 
-
+a.beverageItemDetails(1,"rice",100,5,500);
+a.beverageItemDetails(2,"vages",20,5,100);
+a.beverageItemDetails(2,"vages",20,5,100);
+a.beverageTextboxes(5,2, 700);
 
 
 
