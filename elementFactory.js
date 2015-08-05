@@ -53,14 +53,16 @@ var body=document.body;
 
 var mainContainer = createElement("div", body, {id:"mainContainer"}, { padding:"2%"}, {} );
 
-var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto"} );
+var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto", border:"1px solid"} );
 
-
+var cart = createElement("div", mainContainer, {}, {marginLeft:"60%" ,width:"40%", height:"auto", border:"1px solid"} );
+var cartContainer = createElement("div", cart, {id:"cartContainer"}, {}, {});
 
 
 
 function createOptions(selectTagId, optionObj, selectTagEventObj)
 {
+
 
 var select = createElement("select", block, {id:selectTagId}, {}, selectTagEventObj);
 
@@ -75,6 +77,8 @@ var select = createElement("select", block, {id:selectTagId}, {}, selectTagEvent
 	}
 
 }
+
+
 
 
 
@@ -133,68 +137,72 @@ function test()
 }
 
 
-// var testData1=[
-// {
-// 	name:"grocery"
-// },
-// {
-// 	name:"beverages"
-// }];
+var testData1=[
+{
+	name:"grocery"
+},
+{
+	name:"beverages"
+}];
 
 
-// var testData2=[
-// {
-// id:1,
-// name:"rice"
-// },
-// {
-// id:2,
-// name:"veges"
-// }];
+var testData2=[
+{
+id:1,
+name:"rice"
+},
+{
+id:2,
+name:"veges"
+}];
 
 
-// createOptions(1,testData1,{change: function (){console.log('Items');}});
+createOptions(1,testData1,{change: function (){console.log('Items');}});
 
 
-// productOptionData(1,"rice", 100);
+productOptionData(1,"rice", 100);
 
-// createOptions(2,testData2,{change: function (){console.log('test');}});
+createOptions(2,testData2,{change: function (){console.log('test');}});
 
-// AddDataEventLister("add",test);
+AddDataEventLister("add",test);
 
 
 function cartTemplate()
 {
-	var cart = createElement("div", mainContainer, {}, {marginLeft:"60%" ,width:"40%", height:"auto", border:"1px solid"} );
-	var cartContainer = createElement("div", cart, {id:"cartContainer"}, {}, {});
-
 	
 
-	var groceryData	= createElement("div", cartContainer, {id:"g1"}, {borderBottom:"1px solid"}, {} );
-	createElement("div", groceryData, {}, {}, {}, "Grocery");
-	var gLabel1 = createElement("div", groceryData, {}, {borderBottom:"2px solid"}, {});
-	createElement("span", gLabel1, {}, {marginLeft:"12%"}, {}, "Id");
-	createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Name");
-	createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Price");
-	createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "QTY");
-	createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Amount");
-
-
-	var beverageData	= createElement("div", cartContainer, {id:"g2"}, {}, {} );
-
-	createElement("div", beverageData, {}, {}, {}, "Beverage");
-	var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
-	createElement("span", gLabel2, {}, {marginLeft:"12%"}, {}, "Id");
-	createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Name");
-	createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Price");
-	createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "QTY");
-	createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Amount");
-
-
-	var gtotal = createElement("div", cartContainer, {}, {border:"1px solid red"}, {} );
-
-
+var groceryData="";
+var beverageData="";	
+var gtotal = "";
 	return {
+
+
+			renderTemplate: function()
+							{
+
+								 groceryData	= createElement("div", cartContainer, {id:"g1"}, {borderBottom:"1px solid", border:"1px solid red"}, {} );
+								createElement("div", groceryData, {}, {}, {}, "Grocery");
+								var gLabel1 = createElement("div", groceryData, {}, {borderBottom:"2px solid"}, {});
+								createElement("span", gLabel1, {}, {marginLeft:"12%"}, {}, "Id");
+								createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Name");
+								createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Price");
+								createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "QTY");
+								createElement("span", gLabel1, {}, {marginLeft:"8%"}, {}, "Amount");
+
+
+								 beverageData	= createElement("div", cartContainer, {id:"g2"}, {border:"1px solid blue"}, {} );
+
+								createElement("div", beverageData, {}, {}, {}, "Beverage");
+								var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
+								createElement("span", gLabel2, {}, {marginLeft:"12%"}, {}, "Id");
+								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Name");
+								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Price");
+								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "QTY");
+								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Amount");
+								 gtotal = createElement("div", cartContainer, {}, {}, {} );
+
+								
+							},
 
 		cartContainerClear: function()
 							{
@@ -286,7 +294,7 @@ var  a = new cartTemplate();
 
 
 
-
+a.renderTemplate();
 
 a.groceryItemDetails(1,"rice",100,5,500);
 a.groceryItemDetails(2,"vages",20,5,100);
