@@ -34,7 +34,7 @@
 												this.getAllItems=function()
 																{
 																	var j=0;
-																	console.log(itemlist);
+																	//console.log(itemlist);
 																	return itemlist;
 																};
 
@@ -95,16 +95,16 @@
 						// var tax=beverageObject.getAdditionalVat();
                         function PopulateList()
                     						{
-                    							var i;
-                    							var items=new InventoryItems();
-                    							var itemlist=items.getAllItems();
-                    							var categoryOptions=[];
+                    							var i,items,itemlist,categoryOptions;
+                    							items=new InventoryItems();
+                    							itemlist=items.getAllItems();
+                    							categoryOptions=[];
                     							for(i in Object.keys(itemlist))
 		                    							{
 		                    								categoryOptions.push({name:Object.keys(itemlist)[i]});
 		                    							}
                     						var onChangeEvent={
-                    											change:show
+                    											change:PopulateItems
                     										  };
 
 
@@ -112,21 +112,35 @@
                     							
                     						var createOptions=core.getLib("createOptions");
                     						//console.log(categoryOptions[0].name);
-                    						createOptions(categoryOptions[0].name,categoryOptions,onChangeEvent);
-                    						createOptions(1,"select",onChangeEvent);
-		                    						function show()
+                    						createOptions("category",categoryOptions,onChangeEvent);
+                    						// createOptions("items","select");
+                    						var itemList=document.getElementById('items');
+
+                    							function PopulateItems()
 			                    						{
 			                    							var itemOptions=[];
-			                    							for(i in Object.keys(itemlist))
-					                    							{
-					                    							 	var keyname=Object.keys(itemlist)[i];
-																		var object=itemlist[keyname];
-					                    								itemOptions.push({id:Object.keys(itemlist)[i].name,name:Object.keys(itemlist)[i]});
+			                    							if(document.getElementById('items'))
+			                    								document.getElementById('items').remove();
+			                    							
+					                    								var category=document.getElementById('category').value;
+					                    								//console.log(category);
+					                    							 	//var keyname=Object.keys(itemlist)[i];
+																		var object=itemlist[category];
+																		// console.log(object[0].getName());
 
-					                    							}
+																		for(var j in object)
+																		{
+					                    									itemOptions.push({id:object[j].getId(),name:object[j].getName()});
+					                    								}
+					                    								// console.log(itemOptions[0]);
+					                    					
+					                    							
+					                    					createOptions("items",itemOptions);
 
+					                    					
+					                    			  }
 
-			                    						}
+			                    		
                     						}
                     		PopulateList();
                     		var KEY = "";
