@@ -1,17 +1,17 @@
 (function WrapBags(){
 	//"use strict";
 	// var Inventory = core.getLib("InventoryItems");
-	var inventory = core.getLib("Inventory"),
-		Inventory = new inventory(),
-		productOptionData =	core.getLib("productOptionData"),
-		AddDataEventLister = core.getLib("AddDataEventLister"),
-		groceryBag = new Bag(),
-		beverageBag = new Bag(),
-		obj= {
-			"grocery": groceryBag.selectedData,
-			"bev" : beverageBag.selectedData
-		},
-		flag=0;
+	var inventory = core.getLib("InventoryItems"),
+	Inventory = new inventory(),
+	productOptionData =	core.getLib("productOptionData"),
+	AddDataEventLister = core.getLib("AddDataEventLister"),
+	groceryBag = new Bag(),
+	beverageBag = new Bag(),
+	obj= {
+		"grocery": groceryBag.selectedData,
+		"bev" : beverageBag.selectedData
+	},
+	flag=0;
 
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
@@ -87,7 +87,7 @@
 				//break;
 			}
 		}
-	
+
 		//productOptionData(name,price,quantity);
 	}
 
@@ -97,13 +97,16 @@
 
 		this.add= function()
 		{
-			debugger;
-			console.log(obj);
+			var upperLimit, lowerLimit;
 			if(selectedElement("category").value === "grocery"){
 				selectedData = obj.grocery;
+				// upperLimit = 6;
+				// lowerLimit = 2;
 			}
 			else{
 				selectedData = obj.bev;
+				// upperLimit = 4;
+				// lowerLimit = 2;
 			}
 			var flag=0;
 			var id = selectedElement("items").id;
@@ -111,15 +114,22 @@
 			{
 				if(selectedData[keys].id == id)
 				{
-					selectedData[keys].quantity = document.getElementById("qty").value; 
-					flag=1;
+					// total = document.getElementById("qty").value + this.calculate_total_item(selectedData);
+					// if(total >= lowerLimit && total <= upperLimit){
+						selectedData[keys].quantity = document.getElementById("qty").value; 
+						flag=1;	
+					//}
+					/*else{
+						alert("Sorry your bag is already filled! Please empty some of your cart before checkout");
+					}*/
+					
 				}
 			}
 
 			if(flag === 0)
 			{
 				var newData = {};
-			
+
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
@@ -147,7 +157,7 @@
 			else{
 				selectedData = obj.bev;
 			}
-				
+
 			for(var keys in selectedData)
 			{
 				if(selectedData[keys].id == id)
@@ -166,6 +176,15 @@
 			// productOptionData(name,price,quantity);
 			*/
 		};
+
+		/*this.calculate_total_item = function(selectedData){
+			var total = 0;
+			for(var keys in selectedData){
+				total = total + selectedData.quantity;
+			}
+			alert(total);
+			return total;
+		}*/
 	}	
 	
 })();
