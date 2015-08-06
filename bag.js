@@ -83,13 +83,13 @@
 			AddDataEventLister("add",{click : beverageBag.add});
 			selectedData = obj.bev;
 		}
-		for(var keys in selectedData)
+		for(var keys in this.selectedData)
 		{
-			if(selectedData[keys].id == id)
+			if(this.selectedData[keys].id == id)
 			{
 				quantity = selectedData[keys].quantity;
 				update(name,price,quantity);
-				break;
+				//break;
 			}
 		}
 	
@@ -116,8 +116,7 @@
 			if(flag == 0)
 			{
 				var newData = {};
-
-				
+			
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
@@ -133,6 +132,7 @@
 			else{
 				obj.bev = this.selectedData;
 			}
+			
 			console.log(obj);
 		}
 
