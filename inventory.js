@@ -33,7 +33,6 @@
 		this.items={};
 		//storing the item catalog to a variable
 		itemCatalog=catalogData;
-		// console.log(itemdata);
 		for(i in itemCatalog){
 		
 			for(var j in itemCatalog[i]){
@@ -41,17 +40,17 @@
 				name=itemCatalog[i][j].name;
 				id=itemCatalog[i][j].id;
 				price=itemCatalog[i][j].price;
-				console.log(name+" "+id+" "+price);
 				item=new Item(name,id,price);
 				categories.push(item);
 			
 		
 			}
+
 			this.items[i]=categories;
 		categories=[];
 		}
-/*		console.log(this.items);
-		console.log(this.items["grocery"]);
+	// console.log(this.items);
+		/*console.log(this.items["grocery"]);
 		var grocery=[],beverages=[];
 
 		grocery=[new Item("Rice","r1",200),new Item("Oil","o1",300)];
@@ -122,7 +121,6 @@
 	}
 
 	beverages.prototype=Object.create(InventoryItems);
-		
 		// var beverageObject=new beverages();
 		// var tax=beverageObject.getAdditionalVat();
     function PopulateList(){

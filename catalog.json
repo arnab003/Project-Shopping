@@ -1,5 +1,5 @@
-var catalogData={
-	grocery:[
+catalogData={
+	"grocery":[
 			{
 				"name":"Rice",
 				"id":"r1",
@@ -12,7 +12,7 @@ var catalogData={
 			}
 
 		],
-	beverages:[
+	"beverages":[
 			{
 				"name":"Tea",
 				"id":"t2",
@@ -28,4 +28,4 @@ var catalogData={
 	]
 
 
-};
+}

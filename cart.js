@@ -1,7 +1,3 @@
-
-
-
-
 /*function createElement(tagName, obj, parent)
 		{		
 			var element=document.createElement(tagName);
@@ -12,7 +8,6 @@
 			parent.appendChild(element);
 			return element;
 		}*/
-
 function ob()
 {
 	this.grocery = {
@@ -51,8 +46,9 @@ var ob1=new ob();
 
 var a=new cart();
 a.addBagInCart(ob1);
+a.calculateAmount();
 
-//var myVar=setInterval(function(){a.myTimer(), a.calculateAmount()},5000);
+//var myVar=setInterval(function(){a.myTimer(), a.addBagInCart(ob1)},5000);
 
 function cart()
 {
@@ -66,12 +62,33 @@ function cart()
 	a.beverageItemDetails(2,"vages",20,5,100);
 	a.beverageItemDetails(2,"vages",20,5,100);
 	a.beverageTextboxes(5,2, 700);*/
+	var final1=final2=0;
+
+	var flag=false;
 
 return {
 		addBagInCart:function(ob1)
 		{
+			console.log(flag);
 			var a=core.getLib("cartTemplate");
+			if (!flag) 
+				{
+					flag=true;
+					a.renderTemplate();
+				}else
+				{
+					a.cartContainerClear();
+				}
 
+			
+			//a.cartContainerClear();
+			
+			
+			var totalG=0;
+			var totalB=0;
+
+			if(ob1.grocery!==null)
+			{
 			for(var key in ob1.grocery)
 			{
 				if(key=="items")
@@ -94,12 +111,18 @@ return {
 						var displayDiv=document.getElementById("g");
 						var displayElement = createElement("hr",{}, displayDiv);*/
 
-						a.groceryItemDetails(ob1.grocery[key][subkey].id,ob1.grocery[key][subkey].name,ob1.grocery[key][subkey].price,ob1.grocery[key][subkey].quantity,(ob1.grocery[key][subkey].price)*(ob1.grocery[key][subkey].price,ob1.grocery[key][subkey].quantity));
+						a.groceryItemDetails(ob1.grocery[key][subkey].id,ob1.grocery[key][subkey].name,ob1.grocery[key][subkey].price,ob1.grocery[key][subkey].quantity,(ob1.grocery[key][subkey].price)*(ob1.grocery[key][subkey].quantity));
+						totalG=totalG+((ob1.grocery[key][subkey].price)*(ob1.grocery[key][subkey].quantity));
 					}
 				}
 			}
-			a.groceryTextboxes(5,2, 700);
+			var disPrice=totalG-((5/100)*totalG);
+			final1=Math.round(disPrice-((10/100)*disPrice));
+			a.groceryTextboxes(5,10, final1);
+			}
 
+			if(ob1.bev!==null)
+			{			
 			for(var key in ob1.bev)
 			{
 				if(key=="items")
@@ -121,8 +144,14 @@ return {
 
 						var displayDiv=document.getElementById("b");
 						var displayElement = createElement("hr",{}, displayDiv);*/
+						a.beverageItemDetails(ob1.bev[key][subkey].id,ob1.bev[key][subkey].name,ob1.bev[key][subkey].price,ob1.bev[key][subkey].quantity,(ob1.bev[key][subkey].price)*(ob1.bev[key][subkey].quantity));
+						totalB=totalB+((ob1.bev[key][subkey].price)*(ob1.bev[key][subkey].quantity));
 					}
 				}
+			}
+			var disPrice=totalB-((5/100)*totalB);
+			final2=Math.round(disPrice-((14/100)*disPrice));
+			a.beverageTextboxes(5,14, final2);
 			}
 
 			/*var gdis=Math.floor(Math.random() * 6) + 1 ;
@@ -134,17 +163,18 @@ return {
 
 			var displayDiv=document.getElementById("b");
 			var displayElement = createElement("input",{"type":"text", "value": bdis, "id":"bdis" }, displayDiv);*/
+			return 
 		},
 
 	calculateAmount:function()
 	{
-		//console.log("hello");
+		var a=core.getLib("cartTemplate");
+		a.grandTotal(final1+final2);
 	},
 
 	myTimer:function() 
 	{
-	    document.getElementById("gdis").value = Math.floor(Math.random() * 6) + 1 ;
-	    document.getElementById("bdis").value = Math.floor(Math.random() * 6) + 1 ;
+	    document.getElementById("dis").value = Math.floor(Math.random() * 6) + 1 ;
 	}
 
 }

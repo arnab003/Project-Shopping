@@ -1,5 +1,6 @@
 function core() 
 {	
+	
 	var i=0;
 	var lib={};
 	//attaching immutable properties to core
