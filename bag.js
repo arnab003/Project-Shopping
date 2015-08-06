@@ -15,7 +15,7 @@
 	var obj= {
 		"grocery": groceryBag.selectedData,
 		"bev" : beverageBag.selectedData
-	};
+	}, flag=0;
 	
 	var AddDataEventLister = core.getLib("AddDataEventLister");
 	/*{change: function (){console.log('test');}}*/
@@ -61,7 +61,13 @@
 		name = Inventory.getItemById(id).getName();
 		price = Inventory.getItemById(id).getPrice();
 
-		productOptionData(name,price,quantity);
+		if(flag === 0){
+			productOptionData(name,price,quantity);
+			flag=1;
+		}
+		else
+			update(name,price,quantity);
+
 		
 
 		if(selectedElement("category").value == 'grocery'){
