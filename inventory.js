@@ -29,6 +29,7 @@
 	var InventoryItems=function(){
 		
 		var i,itemCatalog,name,id,price,item;
+		var categories=[];
 		this.items={};
 		//storing the item catalog to a variable
 		itemCatalog=catalogData;
@@ -40,15 +41,17 @@
 				name=itemCatalog[i][j].name;
 				id=itemCatalog[i][j].id;
 				price=itemCatalog[i][j].price;
-				// console.log(name+" "+id+" "+price);
+				console.log(name+" "+id+" "+price);
 				item=new Item(name,id,price);
-				this.items[i]=item;
-
+				categories.push(item);
+			
 		
 			}
+			this.items[i]=categories;
+		categories=[];
 		}
-
-
+/*		console.log(this.items);
+		console.log(this.items["grocery"]);
 		var grocery=[],beverages=[];
 
 		grocery=[new Item("Rice","r1",200),new Item("Oil","o1",300)];
@@ -57,7 +60,7 @@
 
 		this.items.grocery=grocery;
 
-		this.items.beverages=beverages;
+		this.items.beverages=beverages;*/
 
 	};
 
@@ -159,10 +162,12 @@
 				document.getElementById('items').remove();
 			
 			var category=document.getElementById('category').value;
-			//console.log(category);
-		 	//var keyname=Object.keys(itemlist)[i];
+			/*console.log(category);
+		 	var keyname=Object.keys(itemlist)[i];*/
 			var object=itemlist[category];
-			// console.log(object[0].getName());
+		/*	console.log(object);
+			// console.log(itemlist);
+			// console.log(object[0].getName());*/
 
 			for(var j in object){
 				
