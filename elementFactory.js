@@ -180,9 +180,9 @@ function cartTemplate()
 {
 	
 
-var groceryData="";
-var beverageData="";	
-var gtotal = "";
+	var groceryData="";
+	var beverageData="";	
+	var gtotal = "";
 	return {
 
 
@@ -281,7 +281,7 @@ var gtotal = "";
 
 
 								createElement("span", beverageData, {}, {}, {}, "Add. Tax(%)" );
-								createElement("input", beverageData, {type:"text", readOnly:"true", value:tax }, {width:"2em"}, {} );
+								createElement("input", beverageData, {type:"text", readOnly:"true", value:addTax }, {width:"2em"}, {} );
 
 
 								createElement("span", beverageData, {}, {}, {}, "Amount(Rs.)" );
@@ -292,7 +292,8 @@ var gtotal = "";
 							{
 								
 								createElement("input", gtotal, {type:"text", readOnly:"true", value:allTotal}, {float:"right"}, {} );
-								createElement("span", gtotal, {}, {float:"right", marginRight:"2%"},{}, "Grand Total");	
+								createElement("span", gtotal, {}, {float:"right", marginRight:"2%"},{}, "Grand Total");
+								createElement("input", gtotal, {type:"submit", value:"Check Out"}, {float:"left"}, {} );	
 							}													
 
 
@@ -308,7 +309,7 @@ var gtotal = "";
 var  a = new cartTemplate();
 
 
-/*
+
 a.renderTemplate();
 
 a.groceryItemDetails(1,"rice",100,5,500);
@@ -316,14 +317,14 @@ a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryTextboxes(5,2, 700);
 
-a.cartContainerClear();
+//a.cartContainerClear();
 
 a.beverageItemDetails(1,"rice",500,5,2500);
 a.beverageItemDetails(2,"vages",70,5,350);
 a.beverageItemDetails(2,"vages",60,5,300);
 a.beverageTextboxes(5,2,1 ,700);
 
-a.grandTotal(100);*/
+a.grandTotal(100);
 
 
 /*
