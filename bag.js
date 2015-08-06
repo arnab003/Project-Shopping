@@ -1,8 +1,9 @@
 (function wrapBags(){
 	
 	var Inventory = core.getLib("InventoryItems");
+	var productOptionData =	core.getLib("productOptionData");
 
-	debugger;
+	//debugger;
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
 		var add=document.getElementById(tagId);
@@ -49,7 +50,7 @@
 
 	function changeSelection(){
 
-		var productOptionData =	core.getLib("productOptionData");
+		
 		
 		var id = selectedElement("items").id;
 		var quantity = 0;
@@ -87,7 +88,7 @@
 			if(selectedData[keys].id == id)
 			{
 				quantity = selectedData[keys].quantity;
-				update(quantity);
+				update(name,price,quantity);
 				break;
 			}
 		}
