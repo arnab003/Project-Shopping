@@ -58,6 +58,9 @@ function core()
 		else return lib[name][1];
 
 	}
+	/*var a=new cart();
+	var b=new a.getLib("AAA");
+	console.log(b);*/
 }
 
 core();

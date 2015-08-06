@@ -89,7 +89,7 @@ function productOptionData(name, price, qty)
 {
 
 	if(typeof qty=="undefined")
-	qty=0;	
+	qty=1;	
 	
 	//createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "ID");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Name");
@@ -119,7 +119,7 @@ function subQty()
 {
 	var qty = document.getElementById('qty').value ;
 
-	if(qty!=0)
+	if(qty!=1)
 	document.getElementById('qty').value = parseInt(qty) - 1;
 }
 
@@ -341,7 +341,7 @@ var KEY = "";
 KEY = core.getKeys("suvradip");
 var out=core.setLib(KEY, "cartTemplate", carttemplate);
 core.setLib(KEY, "createOptions", createOptions);
-core.setLib(KEY, "productOptionData", productOptionData);	
+core.setLib(KEY, "productOptionData", productOptionData);
 core.setLib(KEY, "AddDataEventLister", AddDataEventLister);		
 console.log(out);
 })();
