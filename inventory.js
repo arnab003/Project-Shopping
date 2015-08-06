@@ -16,12 +16,12 @@
 
 	Item.prototype.getId=function(){
 
-		return this.name;
+		return this.id;
 		
 	};	
 	Item.prototype.getPrice=function(){
 
-		return this.name;
+		return this.price;
 
 	};					
 
@@ -33,7 +33,6 @@
 		var grocery=[],beverages=[];
 		grocery=[new Item("Rice","r1",200),new Item("Oil","o1",300)];
 		beverages=[new Item("Tea","t1",200),new Item("Coffee","c1",200)];
-
 		this.itemlist.grocery=grocery;
 		this.itemlist.beverages=beverages;
 
@@ -56,7 +55,7 @@
 			var object=this.itemlist[keyname];
 			for(j in object){
 				
-				console.log(object[j].getId());
+			//	console.log(object[j].getId());
 				if(object[j].getId()==id){
 					return object[j];
 				}
@@ -160,6 +159,7 @@
     var inventoryObject=new InventoryItems();
     var groceryObject=new grocery();
     var beverageObject=new beverages();
+    //console.log(inventoryObject.getItemById('r1').getPrice());
 	var registerApi=function(){
 
 	var KEY = "";
