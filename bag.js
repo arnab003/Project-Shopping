@@ -1,11 +1,15 @@
 (function wrapBags(){
 	
-	function AddDataEventLister(tagId, addFucnctionReferece, event)
+	var item = core.getLib("Inventory");
+	var Inventory=new item();
+
+	debugger;
+	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
 		var add=document.getElementById(tagId);
 		add.addEventListener(event, addFucnctionReferece);
 	}
-	
+	*/
 	var groceryBag = new bag();
 	var beverageBag = new bag();
 	var obj= {
@@ -13,48 +17,78 @@
 		"bev" : beverageBag.selectedData
 	};
 	
-	AddDataEventLister("category",changeSelection, "change");
+	var AddDataEventLister = core.getLib("AddDataEventLister");
+	/*{change: function (){console.log('test');}}*/
+
+	AddDataEventLister("category",{change: changeSelection} );
 
 	function selectedElement(id){
 		return document.getElementById("items").options[document.getElementById("items").selectedIndex];
 	}
 
-	function productOptionData(name,price,quantity){
-		if(typeof quantity === "undefined"){
-			quantity = 0;
+	function update(name,price,quantity){
+		if(quantity !== "undefined"){
+			document.getElementById("qty").value = quantity;	
 		}
-		document.getElementById("name").value = name;
-		document.getElementById("price").value = price;
-		document.getElementById("qty").value = quantity;
+		if(name !== "undefined"){
+			document.getElementById("name").value = name;	
+		}
+		if(price !== "undefined"){
+			document.getElementById("price").value = price;	
+		}
+		
 	}
 
+	// function productOptionData(name,price,quantity){
+	// 	if(typeof quantity === "undefined"){
+	// 		quantity = 0;
+	// 	}
+	// 	document.getElementById("name").value = name;
+	// 	document.getElementById("price").value = price;
+	// 	document.getElementById("qty").value = quantity;
+	// }
+
 	function changeSelection(){
+
+		var productOptionData =	core.getLib("productOptionData");
+		
 		var id = selectedElement("items").id;
 		var item = core.getLib("Inventory");
 		var Inventory=new item(), quantity = 0;
+		
+
+
 		name = Inventory.getItemById(id).getName();
 		price = Inventory.getItemById(id).getPrice();
+
+		productOptionData(name,price,quantity);
 		
 
 		if(selectedElement("category").value == 'grocery'){
-			AddDataEventLister("items",groceryBag.change,"change");
-			AddDataEventLister("add",groceryBag.add,"click");
+			// AddDataEventLister("items",groceryBag.change,"change");
+			AddDataEventLister("items",{change: groceryBag.change });
+			//AddDataEventLister("add",groceryBag.add,"click");
+			AddDataEventLister("add",{click : groceryBag.add});
 			selectedData = obj.grocery;
 		}
 		else{
-			AddDataEventLister("items",beverageBag.change,"change");
-			AddDataEventLister("add",beverageBag.add,"click");
+			//AddDataEventLister("items",beverageBag.change,"change");
+			AddDataEventLister("items",{change: beverageBag.change });
+			// AddDataEventLister("add",beverageBag.add,"click");
+			AddDataEventLister("add",{click : beverageBag.add});
 			selectedData = obj.bev;
 		}
 		for(var keys in selectedData)
 		{
 			if(selectedData[keys].id == id)
 			{
-				quantity = selectedData[keys].quantity; 
+				quantity = selectedData[keys].quantity;
+				update(quantity);
+				break;
 			}
 		}
-		productOptionData(name,price,quantity);
-
+	
+		//productOptionData(name,price,quantity);
 	}
 
 	function bag()
@@ -114,16 +148,19 @@
 				if(selectedData[keys].id == id)
 				{
 					quantity = selectedData[keys].quantity; 
+					
 				}
 			}
-
-			var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
-			var item = core.getLib("Inventory");
-			var Inventory=new item();
 			name = Inventory.getItemById(id).getName();
 			price = Inventory.getItemById(id).getPrice();
-			productOptionData(name,price,quantity);
+			update(name,price,quantity);
+
+			/*var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
 			
+			/*name = Inventory.getItemById(id).getName();
+			price = Inventory.getItemById(id).getPrice();
+			// productOptionData(name,price,quantity);
+			*/
 		}
 	}	
 	

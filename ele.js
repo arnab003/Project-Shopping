@@ -84,22 +84,22 @@ var select = createElement("select", block, {id:selectTagId}, {}, selectTagEvent
 
 
 
-function productOptionData(id, name, price, qty)
+function productOptionData(name, price, qty)
 {
 
 	if(typeof qty=="undefined")
 	qty=0;	
 	
-	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "ID");
+	//createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "ID");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Name");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Price");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Operation");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "QTY");
 	var div	= createElement("div",  block, {}, {}, {});
 
-	createElement("input", div, {type:"text", readOnly:"true", value:id}, {marginLeft:"15%", width:"2.5em"}, {});
-	createElement("input", div, {type:"text", readOnly:"true", value:name}, {marginLeft:"2%", width:"4em"}, {});
-	createElement("input", div, {type:"text", readOnly:"true", value:price}, {marginLeft:"2%", width:"4em"}, {});
+	//createElement("input", div, {type:"text", readOnly:"true", hidden: "true", value:id, id:"id"}, {marginLeft:"15%", width:"2.5em"}, {});
+	createElement("input", div, {type:"text", readOnly:"true", value:name, id:"name"}, {marginLeft:"20%", width:"4em"}, {});
+	createElement("input", div, {type:"text", readOnly:"true", value:price, id:"price"}, {marginLeft:"2%", width:"4em"}, {});
 	createElement("input", div, {type:"submit", value:"+"}, {marginLeft:"3%", width:"2em"}, {click:addQty});
 	createElement("input", div, {type:"submit", value:"-"}, {marginLeft:"1%", width:"2em"}, {click:subQty});
 	createElement("input", div, {type:"text", readOnly:"true", value:qty, id:"qty"}, {marginLeft:"4.5%", width:"3em"}, {});
@@ -123,10 +123,24 @@ function subQty()
 }
 
 
-function AddDataEventLister(tagId, addFucnctionReferece)
+function AddDataEventLister(tagId, eventObj)
 {
 	var add=document.getElementById(tagId);
-	add.addEventListener("click", addFucnctionReferece);
+/*	add.addEventListener("click", addFucnctionReferece);*/
+console.log("suvradip");
+console.log(tagId);
+console.log(eventObj);
+	if(eventObj!==null)
+	{
+		for( eventName in eventObj)
+		{
+			if (eventObj.hasOwnProperty(eventName)) 
+			add.addEventListener(eventName, eventObj[eventName]);	
+		}
+	}
+
+
+
 }
 
 
@@ -320,7 +334,6 @@ KEY = core.getKeys("suvradip");
 var out=core.setLib(KEY, "cartTemplate", carttemplate);
 core.setLib(KEY, "createOptions", createOptions);
 core.setLib(KEY, "productOptionData", productOptionData);
-
 core.setLib(KEY, "AddDataEventLister", AddDataEventLister);			
 console.log(out);
 })();
