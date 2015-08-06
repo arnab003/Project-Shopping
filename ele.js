@@ -122,7 +122,15 @@ function subQty()
 function AddDataEventLister(tagId, addFucnctionReferece)
 {
 	var add=document.getElementById(tagId);
-	add.addEventListener("click", addFucnctionReferece);
+	if(addFucnctionReferece!==null)
+	{
+		for(var eventName in addFucnctionReferece)
+		{
+			if (addFucnctionReferece.hasOwnProperty(eventName)) 
+			add.addEventListener(eventName, addFucnctionReferece[eventName]);	
+		}
+	}
+	// add.addEventListener("click", addFucnctionReferece);
 }
 
 
