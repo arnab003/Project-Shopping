@@ -134,6 +134,9 @@
 				obj.bev = this.selectedData;
 			}
 			console.log(obj);
+			var c=new cart();
+			c.addBagInCart(obj);
+			c.calculateAmount();
 		}
 
 
