@@ -53,7 +53,7 @@ var body=document.body;
 
 var mainContainer = createElement("div", body, {id:"mainContainer"}, { padding:"2%"}, {} );
 
-var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto", border:"1px solid"} );
+var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto", border:"0px solid"} );
 
 var cart = createElement("div", mainContainer, {}, {marginLeft:"60%" ,width:"40%", height:"auto", border:"1px solid"} );
 var cartContainer = createElement("div", cart, {id:"cartContainer"}, {}, {});
@@ -64,7 +64,7 @@ function createOptions(selectTagId, optionObj, selectTagEventObj)
 {
 
 
-var select = createElement("select", block, {id:selectTagId}, {}, selectTagEventObj);
+	var select = createElement("select", block, {id:selectTagId}, {}, selectTagEventObj);
 
 
 	if(optionObj!==null)
@@ -84,13 +84,13 @@ var select = createElement("select", block, {id:selectTagId}, {}, selectTagEvent
 
 
 
-function productOptionData(id, name, price, qty)
+function productOptionData()
 {
 
 	if(typeof qty=="undefined")
 	qty=0;	
 	
-	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "ID");
+	/*createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "ID");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Name");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Price");
 	createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Operation");
@@ -103,7 +103,39 @@ function productOptionData(id, name, price, qty)
 	createElement("input", div, {type:"submit", value:"+"}, {marginLeft:"3%", width:"2em"}, {click:addQty});
 	createElement("input", div, {type:"submit", value:"-"}, {marginLeft:"1%", width:"2em"}, {click:subQty});
 	createElement("input", div, {type:"text", readOnly:"true", value:qty, id:"qty"}, {marginLeft:"4.5%", width:"3em"}, {});
-	createElement("input", div, {type:"submit", value:"Add", id:"add"}, {marginLeft:"1%", width:"5em"}, {});
+	createElement("input", div, {type:"submit", value:"Add", id:"add"}, {marginLeft:"1%", width:"5em"}, {});*/
+
+
+
+	return {
+
+			renderProductOptionData: function()
+												{
+												
+												createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Name");
+												createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Price");
+												createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "Operation");
+												createElement("span", block, {}, {color:"red",marginLeft:"5%"}, {}, "QTY");
+												var div	= createElement("div",  block, {}, {}, {});
+
+												createElement("input", div, {type:"text", readOnly:"true", id:"input1", hidden:"true"}, { width:"2.5em"}, {});
+												createElement("input", div, {type:"text", readOnly:"true", id:"input2"}, {marginLeft:"3%", width:"4em"}, {});
+												createElement("input", div, {type:"text", readOnly:"true", id:"input3"}, {marginLeft:"2%", width:"4em"}, {});
+												createElement("input", div, {type:"submit", value:"+"}, {marginLeft:"3%", width:"2em"}, {click:addQty});
+												createElement("input", div, {type:"submit", value:"-"}, {marginLeft:"1%", width:"2em"}, {click:subQty});
+												createElement("input", div, {type:"text", readOnly:"true", value:qty, id:"qty"}, {marginLeft:"4.5%", width:"3em"}, {});
+												createElement("input", div, {type:"submit", value:"Add", id:"add"}, {marginLeft:"1%", width:"5em"}, {});		
+												},
+			populateOptionData: function(id, name, price, qty)
+											{
+												document.getElementById("input1").value=id;
+												document.getElementById("input2").value=name;
+												document.getElementById("input3").value=price;
+												document.getElementById("qty").value=qty;
+											}
+
+	};
+
 }
 
 function addQty()
@@ -123,14 +155,21 @@ function subQty()
 }
 
 
-function AddDataEventLister(tagId, addFucnctionReferece)
+//{change: function (){console.log('test');}}
+function AddDataEventLister(tagId, eventObj)
 {
 	var add=document.getElementById(tagId);
-	add.addEventListener("click", addFucnctionReferece);
+	if(eventObj!==null)
+	{
+		for( eventName in eventObj)
+		{
+		if (eventObj.hasOwnProperty(eventName)) 
+		add.addEventListener(eventName, eventObj[eventName]);	
+		}
+	}
 }
 
-
-
+/*
 function test()
 {
 	console.log("hello");
@@ -158,13 +197,17 @@ name:"veges"
 
 
 createOptions(1,testData1,{change: function (){console.log('Items');}});
+createOptions(2,testData2,{change: function (){console.log('test');}}); */
 
 
-productOptionData(1,"rice", 100);
 
-createOptions(2,testData2,{change: function (){console.log('test');}});
+var a = new productOptionData();
+a.renderProductOptionData();
+a.populateOptionData(1,"rice", 100,5);
 
-AddDataEventLister("add",test);
+
+
+
 
 
 function cartTemplate()
