@@ -1,7 +1,6 @@
 (function wrapBags(){
 	
-	var item = core.getLib("Inventory");
-	var Inventory=new item();
+	var Inventory = core.getLib("InventoryItems");
 
 	debugger;
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
@@ -53,8 +52,7 @@
 		var productOptionData =	core.getLib("productOptionData");
 		
 		var id = selectedElement("items").id;
-		var item = core.getLib("Inventory");
-		var Inventory=new item(), quantity = 0;
+		var quantity = 0;
 		
 
 
@@ -118,8 +116,7 @@
 			{
 				var newData = {};
 
-				var item = core.getLib("Inventory");
-				var Inventory=new item();
+				
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
