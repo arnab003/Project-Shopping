@@ -53,7 +53,7 @@ var body=document.body;
 
 var mainContainer = createElement("div", body, {id:"mainContainer"}, { padding:"2%"}, {} );
 
-var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto", border:"0px solid"} );
+var block = createElement("div", mainContainer, {id:"block"}, {width:"50%", height:"auto", border:"1px solid"} );
 
 var cart = createElement("div", mainContainer, {}, {marginLeft:"60%" ,width:"40%", height:"auto", border:"1px solid"} );
 var cartContainer = createElement("div", cart, {id:"cartContainer"}, {}, {});
@@ -64,7 +64,7 @@ function createOptions(selectTagId, optionObj, selectTagEventObj)
 {
 
 
-	var select = createElement("select", block, {id:selectTagId}, {}, selectTagEventObj);
+var select = createElement("select", block, {id:selectTagId}, {}, selectTagEventObj);
 
 
 	if(optionObj!==null)
@@ -77,7 +77,6 @@ function createOptions(selectTagId, optionObj, selectTagEventObj)
 	}
 
 }
-
 
 
 
@@ -124,21 +123,28 @@ function subQty()
 }
 
 
-//{change: function (){console.log('test');}}
 function AddDataEventLister(tagId, eventObj)
 {
 	var add=document.getElementById(tagId);
+/*	add.addEventListener("click", addFucnctionReferece);*/
+console.log("suvradip");
+console.log(tagId);
+console.log(eventObj);
 	if(eventObj!==null)
 	{
 		for( eventName in eventObj)
 		{
-		if (eventObj.hasOwnProperty(eventName)) 
-		add.addEventListener(eventName, eventObj[eventName]);	
+			if (eventObj.hasOwnProperty(eventName)) 
+			add.addEventListener(eventName, eventObj[eventName]);	
 		}
 	}
+
+
+
 }
 
-/*
+
+
 function test()
 {
 	console.log("hello");
@@ -165,15 +171,14 @@ name:"veges"
 }];
 
 
-createOptions(1,testData1,{change: function (){console.log('Items');}});
-createOptions(2,testData2,{change: function (){console.log('test');}}); */
+// createOptions(1,testData1,{change: function (){console.log('Items');}});
 
 
+// productOptionData(1,"rice", 100);
 
+// createOptions(2,testData2,{change: function (){console.log('test');}});
 
-
-
-
+// AddDataEventLister("add",test);
 
 
 function cartTemplate()
@@ -208,7 +213,7 @@ var gtotal = "";
 								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Price");
 								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "QTY");
 								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Amount");
-								 gtotal = createElement("div", cartContainer, {id:"gtotal"}, {}, {} );
+								 gtotal = createElement("div", cartContainer, {}, {}, {} );
 
 								
 							},
@@ -234,7 +239,6 @@ var gtotal = "";
 								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "QTY");
 								createElement("span", gLabel2, {}, {marginLeft:"8%"}, {}, "Amount");
 
-								document.getElementById("gtotal").innerHTML="";
 							},
 
 		groceryItemDetails: function(Id, Name, Price, Qty, Amount)
@@ -271,18 +275,13 @@ var gtotal = "";
 									
 							},
 
-		beverageTextboxes: function(discount, tax, addTax ,totalAmount)
+		beverageTextboxes: function(discount, tax, totalAmount)
 							{
 								createElement("span", beverageData, {}, {}, {}, "Discount(%)" );	
-								createElement("input", beverageData,{type:"text", readOnly:"true", value:discount }, {width:"2em"}, {} );
+								createElement("input", beverageData,{type:"text", readOnly:"true", value:discount }, {width:"4em"}, {} );
 
 								createElement("span", beverageData, {}, {}, {}, "Tax(%)" );
-								createElement("input", beverageData, {type:"text", readOnly:"true", value:tax }, {width:"2em"}, {} );
-
-
-								createElement("span", beverageData, {}, {}, {}, "Add. Tax(%)" );
-								createElement("input", beverageData, {type:"text", readOnly:"true", value:tax }, {width:"2em"}, {} );
-
+								createElement("input", beverageData, {type:"text", readOnly:"true", value:tax }, {width:"4em"}, {} );
 
 								createElement("span", beverageData, {}, {}, {}, "Amount(Rs.)" );
 								createElement("input", beverageData, {type:"text", readOnly:"true", value:totalAmount }, {width:"4em"}, {} );		
@@ -308,39 +307,33 @@ var gtotal = "";
 var  a = new cartTemplate();
 
 
-/*
-a.renderTemplate();
 
+a.renderTemplate();
 a.groceryItemDetails(1,"rice",100,5,500);
 a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryItemDetails(2,"vages",20,5,100);
 a.groceryTextboxes(5,2, 700);
-
-a.cartContainerClear();
-
+//a.cartContainerClear();
 a.beverageItemDetails(1,"rice",500,5,2500);
 a.beverageItemDetails(2,"vages",70,5,350);
 a.beverageItemDetails(2,"vages",60,5,300);
-a.beverageTextboxes(5,2,1 ,700);
+a.beverageTextboxes(5,2, 700);
+a.grandTotal(100);
 
-a.grandTotal(100);*/
 
 
-/*
-var  carttemplate= new cartTemplate();
+/*var  carttemplate= new cartTemplate();
 var KEY = "";
 (function()
 {
 KEY = core.getKeys("suvradip");
 var out=core.setLib(KEY, "cartTemplate", carttemplate);
 core.setLib(KEY, "createOptions", createOptions);
-core.setLib(KEY, "productOptionData", productOptionData);			
-console.log(out);
-})();*/
+core.setLib(KEY, "productOptionData", productOptionData);
+core.setLib(KEY, "AddDataEventLister", AddDataEventLister);			
+console.log(out);*/
+})();
 
 
 
 })();//end
-
-
-/*elementFactory();*/
