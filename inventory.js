@@ -98,14 +98,15 @@
         function PopulateList()
     						{
     							var i,items,itemlist,categoryOptions;
-    							items=new InventoryItems();
+    							items=registerApi.getInventoryObject();
+    							
     							itemlist=items.getAllItems();
     							categoryOptions=[];
     							for(i in Object.keys(itemlist))
             							{
             								categoryOptions.push({name:Object.keys(itemlist)[i]});
             							}
-            							
+
     							var onChangeEvent={
     											change:PopulateItems
     										  };
@@ -145,15 +146,34 @@
 
                 		
     						}
-    		PopulateList();
-    		var KEY = "";
-			(function()
+    		
+    		
+			var registerApi=function()
 			{
+			var KEY = "";
 			KEY = core.getKeys("ronojit");
-			var out=core.setLib(KEY, "Inventory", InventoryItems);
-			core.setLib(KEY,"grocery",grocery);
-			core.setLib(KEY,"beverages",beverages);
+			var inventoryObject=new InventoryItems();
+
+			var groceryObject=new grocery();
+			var beveragesObject=new beverages();
+				registerApi.getInventoryObject=function()
+					{
+						return inventoryObject;
+					};
+				registerApi.getgroceryObject=function()
+					{
+						return groceryObject;
+					};
+				registerApi.getbeveragesObject=function()
+					{
+						return beveragesObject;
+					};
+			var out=core.setLib(KEY, "InventoryItems", inventoryObject);
+			core.setLib(KEY,"grocery",groceryObject);
+			core.setLib(KEY,"beverages",beveragesObject);
 			console.log(out);
-			})();
+			PopulateList();
+			};
+			registerApi();
 
 	})();
