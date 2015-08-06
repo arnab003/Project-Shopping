@@ -293,7 +293,7 @@ function cartTemplate()
 								
 								createElement("input", gtotal, {type:"text", readOnly:"true", value:allTotal}, {float:"right"}, {} );
 								createElement("span", gtotal, {}, {float:"right", marginRight:"2%"},{}, "Grand Total");
-								createElement("input", gtotal, {type:"submit", value:"Check Out"}, {float:"left"}, {} );	
+								createElement("input", gtotal, {type:"submit", value:"Check Out", id:"checkoutButton"}, {float:"left"}, {} );	
 							}													
 
 
