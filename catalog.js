@@ -1,4 +1,4 @@
-var itemdata={
+var catalogData={
 	grocery:[
 			{
 				"name":"Rice",
