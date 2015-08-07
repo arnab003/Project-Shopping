@@ -49,17 +49,6 @@
 			this.items[i]=categories;
 		categories=[];
 		}
-	// console.log(this.items);
-		/*console.log(this.items["grocery"]);
-		var grocery=[],beverages=[];
-
-		grocery=[new Item("Rice","r1",200),new Item("Oil","o1",300)];
-
-		beverages=[new Item("Tea","t1",200),new Item("Coffee","c1",200)];
-
-		this.items.grocery=grocery;
-
-		this.items.beverages=beverages;*/
 
 	};
 
@@ -121,8 +110,7 @@
 	}
 
 	beverages.prototype=Object.create(InventoryItems);
-		// var beverageObject=new beverages();
-		// var tax=beverageObject.getAdditionalVat();
+
     function PopulateList(){
 
 		var i,items,itemlist,categoryOptions;
@@ -160,13 +148,8 @@
 				document.getElementById('items').remove();
 			
 			var category=document.getElementById('category').value;
-			/*console.log(category);
-		 	var keyname=Object.keys(itemlist)[i];*/
-			var object=itemlist[category];
-		/*	console.log(object);
-			// console.log(itemlist);
-			// console.log(object[0].getName());*/
 
+			var object=itemlist[category];
 			for(var j in object){
 				
 				itemOptions.push({id:object[j].getId(),name:object[j].getName()});
