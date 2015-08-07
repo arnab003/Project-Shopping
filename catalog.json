@@ -23,6 +23,11 @@ catalogData={
 				"id":"c2",
 				"price":100
 
+			},
+			{
+				"name":"Cappachino",
+				id:"c3",
+				"price":300
 			}
 
 	]
