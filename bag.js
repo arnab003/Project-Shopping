@@ -2,34 +2,19 @@
 	//"use strict";
 	// var Inventory = core.getLib("InventoryItems");
 	var inventory = core.getLib("InventoryItems"),
-	elementEnableDisable = core.getLib("elementEnableDisable"),
 	Inventory = new inventory(),
 	productOptionData =	core.getLib("productOptionData"),
 	AddDataEventLister = core.getLib("AddDataEventLister"),
-	selectedElement = core.getLib("selectedElement"),
+	selectedElement = core.getLib("selectedElement");
 	groceryBag = new Bag(),
 	beverageBag = new Bag(),
 	obj= {
 		"grocery": groceryBag.selectedData,
 		"bev" : beverageBag.selectedData
 	},
-	selectedData = [];
+	flag=0;
 
-
-
-
-	
-	//First time creation of the template design with blank input textboxes.
 	productOptionData.renderProductDetails();
-
-	var add_Button = new elementEnableDisable('add'),
-	plus_Button = new elementEnableDisable('increment'),
-	minus_Button = new elementEnableDisable('decrement');
-
-	//Disabling all the buttons
-	add_Button.disable();
-	plus_Button.disable();
-	minus_Button.disable();
 
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
@@ -40,7 +25,6 @@
 	
 	/*{change: function (){console.log('test');}}*/
 
-	//Adding an event Listener to trigger when the first dropdown gets changed.
 	AddDataEventLister("category",{change: changeSelection} );
 
 	/*function selectedElement(id){
@@ -69,26 +53,13 @@
 	// 	document.getElementById("qty").value = quantity;
 	// }
 
-	//Listened to when selection of a dropdown is changed.
 	function changeSelection(){
-		if(selectedElement("category").value === "Select Category"){
-			//If "Select Category is selected in the dropdown, then the input boxes gets blank."
-			productOptionData.productInputSet("","","");
-			//Disabling all the buttons
-			add_Button.disable();
-			plus_Button.disable();
-			minus_Button.disable();
-			return true;
-		}
-		var id = selectedElement("items").id,
-		quantity = 1,
-		name = Inventory.getItemById(id).getName(),
-		price = Inventory.getItemById(id).getPrice(),
-		selectedData = [];
+		
 
-		add_Button.enable();
-		plus_Button.enable();
-		minus_Button.enable();
+		var id = selectedElement("items").id;
+		var quantity = 1,
+		name = Inventory.getItemById(id).getName(),
+		price = Inventory.getItemById(id).getPrice();
 
 		/*if(flag === 0){
 			productOptionData(name,price,quantity);
@@ -96,12 +67,9 @@
 		}
 		else
 			update(name,price,quantity);	
-		*/
-
-		//The input text boxes are filled with name of the item selected and displays its corresponding price and a default falue of 1. 
+*/
 		productOptionData.productInputSet(name,price,quantity);
 
-		//Event Listeners are attached according to the selection of categories.
 		if(selectedElement("category").value == "grocery"){
 			// AddDataEventLister("items",groceryBag.change,"change");
 			AddDataEventLister("items",{change: groceryBag.change });
@@ -116,7 +84,6 @@
 			AddDataEventLister("add",{click : beverageBag.add});
 			selectedData = obj.bev;
 		}
-		//Iteration is done to check for the recurrence of the selection made.If any, updates are made.
 		for(var keys in selectedData)
 		{
 			if(selectedData[keys].id == id)
@@ -135,12 +102,11 @@
 	{
 		this.selectedData = []; 
 
-		var cart=core.getLib("cart");
+		var c=core.getLib("cart");
 
-		//Function to be listened when the Add button is pressed
 		this.add= function()
 		{
-			//var upperLimit, lowerLimit;
+			var upperLimit, lowerLimit;
 			if(selectedElement("category").value === "grocery"){
 				selectedData = obj.grocery;
 				// upperLimit = 6;
@@ -160,9 +126,8 @@
 					// total = document.getElementById("qty").value + this.calculate_total_item(selectedData);
 					// if(total >= lowerLimit && total <= upperLimit){
 						
-					//Obtain the values in the input boxes. productsInputGetIds() returns an object that contains all the required values.
-					selectedData[keys].quantity = productOptionData.productsInputGetIds().qty; 
-					flag=1;	
+						selectedData[keys].quantity = productOptionData.productsInputGetIds().qty; 
+						flag=1;	
 					//}
 					/*else{
 						alert("Sorry your bag is already filled! Please empty some of your cart before checkout");
@@ -170,10 +135,11 @@
 					
 				}
 			}
-			//flag is used to check if the data selected is not chosen before.
+
 			if(flag === 0)
 			{
 				var newData = {};
+
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
@@ -181,16 +147,15 @@
 				
 				if(typeof selectedData === "undefined")
 					selectedData = [];
-				//NewData is pushed to the selected Data array.
 				selectedData.push(newData);
 			}
 			
-			//console.log(obj);
-			cart.addBagInCart(obj);
-			cart.calculateAmount();
+			console.log(obj);
+			c.addBagInCart(obj);
+			c.calculateAmount();
 		};
 
-		//Triggered when the second dropdown value gets changed.
+
 		this.change = function()
 		{
 			var id = selectedElement("items").id,
@@ -235,3 +200,5 @@
 	}	
 	
 })();
+
+
