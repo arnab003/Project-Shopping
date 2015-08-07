@@ -26,6 +26,7 @@
 	plus_Button = new elementEnableDisable('increment'),
 	minus_Button = new elementEnableDisable('decrement');
 
+	//Disabling all the buttons
 	add_Button.disable();
 	plus_Button.disable();
 	minus_Button.disable();
@@ -70,12 +71,10 @@
 
 	//Listened to when selection of a dropdown is changed.
 	function changeSelection(){
-		
-		
-
 		if(selectedElement("category").value === "Select Category"){
 			//If "Select Category is selected in the dropdown, then the input boxes gets blank."
 			productOptionData.productInputSet("","","");
+			//Disabling all the buttons
 			add_Button.disable();
 			plus_Button.disable();
 			minus_Button.disable();
