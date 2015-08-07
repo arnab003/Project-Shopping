@@ -77,8 +77,8 @@
 
 													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"name", style:"margin-Left:5%; width:4em"});
 													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"price", style:"margin-Left:3%; width:4em"});
-													createElement("input", this.div2, {type:"submit", value:"+", style:"margin-Left:3%; width:2em"}, {click:addQty});
-													createElement("input", this.div2, {type:"submit", value:"-", style:"margin-Left:1%; width:2em"}, {click:subQty});
+													createElement("input", this.div2, {type:"submit", id:"increment", value:"+", style:"margin-Left:3%; width:2em"}, {click:addQty});
+													createElement("input", this.div2, {type:"submit", id:"decrement", value:"-", style:"margin-Left:1%; width:2em"}, {click:subQty});
 													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"qty", style:"margin-Left:4.5%; width:3em"});
 													createElement("input", this.div2, {type:"submit", value:"Add", id:"add", style:"margin-Left:1%; width:5em"});
 
@@ -344,12 +344,12 @@
 					(function()
 					{
 					KEY = core.getKeys("suvradip"); 
-					var out = core.setLib(KEY, "createElement", createElement),
-					core.setLib(KEY, "createOptions", createOptions),
-					core.setLib(KEY, "selectedElement", selectedElement),
-					core.setLib(KEY, "productOptionData", productOptionData),
-					core.setLib(KEY, "elementEnableDisable", elementEnableDisable),		
-					core.setLib(KEY, "AddDataEventLister", AddDataEventLister),
+					var out = core.setLib(KEY, "createElement", createElement);
+					core.setLib(KEY, "createOptions", createOptions);
+					core.setLib(KEY, "selectedElement", selectedElement);
+					core.setLib(KEY, "productOptionData", productOptionData);
+					core.setLib(KEY, "elementEnableDisable", elementEnableDisable);		
+					core.setLib(KEY, "AddDataEventLister", AddDataEventLister);
 					core.setLib(KEY, "cartTemplate", carttemplate);	
 
 					//console.log(out);

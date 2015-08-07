@@ -15,9 +15,20 @@
 	},
 	selectedData = [];
 
+
+
+
 	
 	//First time creation of the template design with blank input textboxes.
 	productOptionData.renderProductDetails();
+
+	var add_Button = new elementEnableDisable('add'),
+	plus_Button = new elementEnableDisable('increment'),
+	minus_Button = new elementEnableDisable('decrement');
+
+	add_Button.disable();
+	plus_Button.disable();
+	minus_Button.disable();
 
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
@@ -60,12 +71,14 @@
 	//Listened to when selection of a dropdown is changed.
 	function changeSelection(){
 		
-		var add_Button = new elementEnableDisable('add');
+		
 
 		if(selectedElement("category").value === "Select Category"){
 			//If "Select Category is selected in the dropdown, then the input boxes gets blank."
 			productOptionData.productInputSet("","","");
 			add_Button.disable();
+			plus_Button.disable();
+			minus_Button.disable();
 			return true;
 		}
 		var id = selectedElement("items").id,
@@ -75,6 +88,8 @@
 		selectedData = [];
 
 		add_Button.enable();
+		plus_Button.enable();
+		minus_Button.enable();
 
 		/*if(flag === 0){
 			productOptionData(name,price,quantity);
@@ -221,5 +236,3 @@
 	}	
 	
 })();
-
-
