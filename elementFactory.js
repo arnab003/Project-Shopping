@@ -348,6 +348,7 @@
 					core.setLib(KEY, "createOptions", createOptions);
 					core.setLib(KEY, "selectedElement", selectedElement);
 					core.setLib(KEY, "productOptionData", productOptionData);
+					core.setLib(KEY, "elementEnableDisable", elementEnableDisable);		
 					core.setLib(KEY, "AddDataEventLister", AddDataEventLister);
 					core.setLib(KEY, "cartTemplate", carttemplate);		
 
