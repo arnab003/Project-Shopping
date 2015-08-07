@@ -2,16 +2,19 @@
 	//"use strict";
 	// var Inventory = core.getLib("InventoryItems");
 	var inventory = core.getLib("InventoryItems"),
-		Inventory = new inventory(),
-		productOptionData =	core.getLib("productOptionData"),
-		AddDataEventLister = core.getLib("AddDataEventLister"),
-		groceryBag = new Bag(),
-		beverageBag = new Bag(),
-		obj= {
-			"grocery": groceryBag.selectedData,
-			"bev" : beverageBag.selectedData
-		},
-		flag=0;
+	Inventory = new inventory(),
+	productOptionData =	core.getLib("productOptionData"),
+	AddDataEventLister = core.getLib("AddDataEventLister"),
+	selectedElement = core.getLib("selectedElement");
+	groceryBag = new Bag(),
+	beverageBag = new Bag(),
+	obj= {
+		"grocery": groceryBag.selectedData,
+		"bev" : beverageBag.selectedData
+	},
+	flag=0;
+
+	productOptionData.renderProductDetails();
 
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
@@ -24,11 +27,11 @@
 
 	AddDataEventLister("category",{change: changeSelection} );
 
-	function selectedElement(id){
+	/*function selectedElement(id){
 		return document.getElementById(id).options[document.getElementById(id).selectedIndex];
-	}
+	}*/
 
-	function update(name,price,quantity){
+	/*function update(name,price,quantity){
 		if(quantity !== "undefined"){
 			document.getElementById("qty").value = quantity;	
 		}
@@ -39,7 +42,7 @@
 			document.getElementById("price").value = price;	
 		}
 		
-	}
+	}*/
 
 	// function productOptionData(name,price,quantity){
 	// 	if(typeof quantity === "undefined"){
@@ -52,17 +55,20 @@
 
 	function changeSelection(){
 		
+
 		var id = selectedElement("items").id;
 		var quantity = 1,
 		name = Inventory.getItemById(id).getName(),
 		price = Inventory.getItemById(id).getPrice();
 
-		if(flag === 0){
+		/*if(flag === 0){
 			productOptionData(name,price,quantity);
 			flag=1;
 		}
 		else
 			update(name,price,quantity);	
+*/
+		productOptionData.productInputSet(name,price,quantity);
 
 		if(selectedElement("category").value == "grocery"){
 			// AddDataEventLister("items",groceryBag.change,"change");
@@ -83,28 +89,33 @@
 			if(selectedData[keys].id == id)
 			{
 				quantity = selectedData[keys].quantity;
-				update(name,price,quantity);
+				//update(name,price,quantity);
+				productOptionData.productInputSet(name,price,quantity);
 				//break;
 			}
 		}
-	
+
 		//productOptionData(name,price,quantity);
 	}
 
 	function Bag()
 	{
 		this.selectedData = []; 
+
 		var cart=core.getLib("cart");
 
 		this.add= function()
 		{
-			
-			console.log(obj);
+			var upperLimit, lowerLimit;
 			if(selectedElement("category").value === "grocery"){
 				selectedData = obj.grocery;
+				// upperLimit = 6;
+				// lowerLimit = 2;
 			}
 			else{
 				selectedData = obj.bev;
+				// upperLimit = 4;
+				// lowerLimit = 2;
 			}
 			var flag=0;
 			var id = selectedElement("items").id;
@@ -112,19 +123,27 @@
 			{
 				if(selectedData[keys].id == id)
 				{
-					selectedData[keys].quantity = document.getElementById("qty").value; 
-					flag=1;
+					// total = document.getElementById("qty").value + this.calculate_total_item(selectedData);
+					// if(total >= lowerLimit && total <= upperLimit){
+						
+						selectedData[keys].quantity = productOptionData.productsInputGetIds().qty; 
+						flag=1;	
+					//}
+					/*else{
+						alert("Sorry your bag is already filled! Please empty some of your cart before checkout");
+					}*/
+					
 				}
 			}
 
 			if(flag === 0)
 			{
 				var newData = {};
-			
+
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
-				newData.quantity = document.getElementById("qty").value;
+				newData.quantity = productOptionData.productsInputGetIds().qty;
 				
 				if(typeof selectedData === "undefined")
 					selectedData = [];
@@ -132,7 +151,6 @@
 			}
 			
 			console.log(obj);
-
 			cart.addBagInCart(obj);
 			cart.calculateAmount();
 		};
@@ -143,7 +161,7 @@
 			var id = selectedElement("items").id,
 			name = Inventory.getItemById(id).getName(),
 			price = Inventory.getItemById(id).getPrice(),
-			quantity=0;
+			quantity=1;
 
 			if(selectedElement("category").value === "grocery"){
 				selectedData = obj.grocery;
@@ -151,7 +169,7 @@
 			else{
 				selectedData = obj.bev;
 			}
-				
+
 			for(var keys in selectedData)
 			{
 				if(selectedData[keys].id == id)
@@ -161,7 +179,7 @@
 				}
 			}
 			
-			update(name,price,quantity);
+			productOptionData.productInputSet(name,price,quantity);
 
 			/*var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
 			
@@ -170,6 +188,17 @@
 			// productOptionData(name,price,quantity);
 			*/
 		};
+
+		/*this.calculate_total_item = function(selectedData){
+			var total = 0;
+			for(var keys in selectedData){
+				total = total + selectedData.quantity;
+			}
+			alert(total);
+			return total;
+		}*/
 	}	
 	
 })();
+
+

@@ -27,21 +27,47 @@
 
 	//Inventory items function
 	var InventoryItems=function(){
-		// console.log(a);
-		// var json=JSON.parse(item);
-		this.itemlist={};
+		
+		var i,itemCatalog,name,id,price,item;
+		var categories=[];
+		this.items={};
+		//storing the item catalog to a variable
+		itemCatalog=catalogData;
+		// console.log(itemdata);
+		for(i in itemCatalog){
+		
+			for(var j in itemCatalog[i]){
+			
+				name=itemCatalog[i][j].name;
+				id=itemCatalog[i][j].id;
+				price=itemCatalog[i][j].price;
+				console.log(name+" "+id+" "+price);
+				item=new Item(name,id,price);
+				categories.push(item);
+			
+		
+			}
+			this.items[i]=categories;
+		categories=[];
+		}
+/*		console.log(this.items);
+		console.log(this.items["grocery"]);
 		var grocery=[],beverages=[];
+
 		grocery=[new Item("Rice","r1",200),new Item("Oil","o1",300)];
+
 		beverages=[new Item("Tea","t1",200),new Item("Coffee","c1",200)];
-		this.itemlist.grocery=grocery;
-		this.itemlist.beverages=beverages;
+
+		this.items.grocery=grocery;
+
+		this.items.beverages=beverages;*/
 
 	};
 
 	InventoryItems.prototype.getAllItems=function(){
 		var j=0;
-		//console.log(itemlist);
-		return this.itemlist;
+		//console.log(items);
+		return this.items;
 	};
 
 	InventoryItems.prototype.getItemById=function(id){
@@ -49,10 +75,10 @@
 		var item,j,category;
 		j=0;
 		
-		for(var i in Object.keys(this.itemlist))
+		for(var i in Object.keys(this.items))
 		{
-			var keyname=Object.keys(this.itemlist)[i];
-			var object=this.itemlist[keyname];
+			var keyname=Object.keys(this.items)[i];
+			var object=this.items[keyname];
 			for(j in object){
 				
 			//	console.log(object[j].getId());
@@ -100,6 +126,7 @@
 		// var beverageObject=new beverages();
 		// var tax=beverageObject.getAdditionalVat();
     function PopulateList(){
+
 		var i,items,itemlist,categoryOptions;
 		items=inventoryObject;
 
@@ -135,10 +162,12 @@
 				document.getElementById('items').remove();
 			
 			var category=document.getElementById('category').value;
-			//console.log(category);
-		 	//var keyname=Object.keys(itemlist)[i];
+			/*console.log(category);
+		 	var keyname=Object.keys(itemlist)[i];*/
 			var object=itemlist[category];
-			// console.log(object[0].getName());
+		/*	console.log(object);
+			// console.log(itemlist);
+			// console.log(object[0].getName());*/
 
 			for(var j in object){
 				
@@ -162,14 +191,14 @@
     //console.log(inventoryObject.getItemById('r1').getPrice());
 	var registerApi=function(){
 
-	var KEY = "";
-	KEY = core.getKeys("ronojit");
-	
-	var out=core.setLib(KEY, "InventoryItems", InventoryItems);
-	core.setLib(KEY,"grocery",grocery);
-	core.setLib(KEY,"beverages",beverages);
-	console.log(out);
-	PopulateList();
+		var KEY = "";
+		KEY = core.getKeys("ronojit");
+		
+		var out=core.setLib(KEY, "InventoryItems", InventoryItems);
+		core.setLib(KEY,"grocery",grocery);
+		core.setLib(KEY,"beverages",beverages);
+		console.log(out);
+		PopulateList();
 
 	};
 
