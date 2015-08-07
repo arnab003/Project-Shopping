@@ -109,12 +109,12 @@
 		}										
 
 		elementEnableDisable.prototype.enable = function() {
-												console.log("enable");	
+												//console.log("enable");	
 												document.getElementById(this.id).disabled=false;
 												}; 		
 
 		elementEnableDisable.prototype.disable = function() {
-												console.log("disable");	
+												//console.log("disable");	
 												document.getElementById(this.id).disabled=true;	
 												};																									
 
@@ -350,10 +350,13 @@
 					core.setLib(KEY, "productOptionData", productOptionData);
 					core.setLib(KEY, "elementEnableDisable", elementEnableDisable);		
 					core.setLib(KEY, "AddDataEventLister", AddDataEventLister);
-					core.setLib(KEY, "cartTemplate", carttemplate);		
+					core.setLib(KEY, "cartTemplate", carttemplate);	
 
 					//console.log(out);
 					})();
+
+
+
 
 
 
