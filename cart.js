@@ -16,38 +16,38 @@
 
 		addBagInCart : function(ob1) {
 
-				var a=core.getLib("cartTemplate");
-				
-				if (!this.flag)	{
-						this.flag=true;
-						a.renderTemplate();
+			var a=core.getLib("cartTemplate");
+			
+			if (!this.flag)	{
+				this.flag=true;
+				a.renderTemplate();
+			}
+			else {
+				a.cartContainerClear();
+			}			
+			
+			var totalG=0;
+			var totalB=0;
+			var subkey;
+
+			for(var key in ob1)	{
+
+				if(key=="grocery" && ob1[key]!==null) {
+
+					for(subkey in ob1[key])	{
+
+						a.groceryItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
+						totalG=totalG+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 					}
-					else {
-						a.cartContainerClear();
-					}			
-				
-				var totalG=0;
-				var totalB=0;
-				var subkey;
+				}
+				if(key=="bev" && ob1[key]!==null) {
 
-				for(var key in ob1)	{
+					for(subkey in ob1[key])	{
 
-					if(key=="grocery" && ob1[key]!==null) {
-
-						for(subkey in ob1[key])	{
-
-							a.groceryItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
-							totalG=totalG+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
-						}
+						a.beverageItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
+						totalB=totalB+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 					}
-					if(key=="bev" && ob1[key]!==null) {
-
-						for(subkey in ob1[key])	{
-
-							a.beverageItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
-							totalB=totalB+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
-						}
-					}				
+				}				
 				}//end of for loop
 				
 				var disPrice;
@@ -60,12 +60,12 @@
 				this.final2=Math.round(disPrice+((btax.getVat()/100)*disPrice));
 				this.final2=Math.round(this.final2+((btax.getAdditionalVat()/100)*this.final2));
 				a.beverageTextboxes(5, btax.getVat(), btax.getAdditionalVat(), this.final2);
-		},
+			},
 
-		calculateAmount : function() {
-			var a=core.getLib("cartTemplate");
-			a.grandTotal(this.final1+this.final2);
-		}
+			calculateAmount : function() {
+				var a=core.getLib("cartTemplate");
+				a.grandTotal(this.final1+this.final2);
+			}
 			
 	};//end of proto
 
