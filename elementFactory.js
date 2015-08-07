@@ -5,21 +5,21 @@
 		function createElement(tagName, parent, attributeObj, eventObj)
 		{		
 			var element=document.createElement(tagName);
-				for(var key in attributeObj) 
-				{
-					if(key=="label")
+			for(var key in attributeObj) 
+			{
+				if(key=="label")
 					element.appendChild(document.createTextNode(attributeObj[key]));	
-					
-					element.setAttribute(key, attributeObj[key]);
-				}
 
-				if(eventObj!==null) {
-					for( eventName in eventObj)
-					{
-						if (eventObj.hasOwnProperty(eventName)) 
+				element.setAttribute(key, attributeObj[key]);
+			}
+
+			if(eventObj!==null) {
+				for(eventName in eventObj)
+				{
+					if (eventObj.hasOwnProperty(eventName)) 
 						element.addEventListener(eventName, eventObj[eventName]);	
-					}
 				}
+			}
 
 			parent.appendChild(element);
 			return element;
@@ -28,11 +28,10 @@
 
 		var body=document.body;
 		var mainContainer = createElement("div", body, {id:"mainContainer", style:"padding:2%"});
-		var block = createElement("div", mainContainer, {id:"block", style:"width:50; height:auto; border:0px solid"} );
-		var cart = createElement("div", mainContainer,{id:"cart", style:"margin-Left:60%; width:40%; height:auto; border:0px solid"} );
+		var block = createElement("div", mainContainer, {id:"block", style:"width:50; height:auto;"} );
+		var cart = createElement("div", mainContainer,{id:"cart", style:"margin-Left:60%; width:40%;"} );
 		var cartContainer = createElement("div", cart, {id:"cartContainer"});
-
-
+		
 
 		function createOptions(selectTagId, optionObj, selectTagEventObj)
 		{
@@ -46,15 +45,15 @@
 				for(var attrName in optionObj)
 				{
 					if (optionObj.hasOwnProperty(attrName))
-					ele =  createElement("option", select, {value:optionObj[attrName].name, id:optionObj[attrName].id, label:optionObj[attrName].name} );
-						
+						ele =  createElement("option", select, {value:optionObj[attrName].name, id:optionObj[attrName].id, label:optionObj[attrName].name} );
+
 				}
 			}
 
 		}
 
 		function selectedElement(id){
-		return document.getElementById(id).options[document.getElementById(id).selectedIndex];
+			return document.getElementById(id).options[document.getElementById(id).selectedIndex];
 		}
 
 
@@ -70,35 +69,35 @@
 		}
 
 		product.prototype.renderProductDetails = function() {
-													createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Name"});
-													createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Price"});
-													createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Operation"});
-													createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"QTY"});
+			createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Name"});
+			createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Price"});
+			createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"Operation"});
+			createElement("span", this.div1, {style:"color:red; margin-Left:5%", label:"QTY"});
 
-													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"name", style:"margin-Left:5%; width:4em"});
-													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"price", style:"margin-Left:3%; width:4em"});
-													createElement("input", this.div2, {type:"submit", value:"+", style:"margin-Left:3%; width:2em"}, {click:addQty});
-													createElement("input", this.div2, {type:"submit", value:"-", style:"margin-Left:1%; width:2em"}, {click:subQty});
-													createElement("input", this.div2, {type:"text", readOnly:"true",  id:"qty", style:"margin-Left:4.5%; width:3em"});
-													createElement("input", this.div2, {type:"submit", value:"Add", id:"add", style:"margin-Left:1%; width:5em"});
+			createElement("input", this.div2, {type:"text", readOnly:"true",  id:"name", style:"margin-Left:5%; width:4em"});
+			createElement("input", this.div2, {type:"text", readOnly:"true",  id:"price", style:"margin-Left:3%; width:4em"});
+			createElement("input", this.div2, {type:"submit", value:"+", style:"margin-Left:3%; width:2em"}, {click:addQty});
+			createElement("input", this.div2, {type:"submit", value:"-", style:"margin-Left:1%; width:2em"}, {click:subQty});
+			createElement("input", this.div2, {type:"text", readOnly:"true",  id:"qty", style:"margin-Left:4.5%; width:3em"});
+			createElement("input", this.div2, {type:"submit", value:"Add", id:"add", style:"margin-Left:1%; width:5em"});
 
-													};
+		};
 
 		product.prototype.productInputSet = function(name, price, qty) {
-										document.getElementById("name").value=name;
-										document.getElementById("price").value=price;
-										document.getElementById("qty").value=qty;
-										};
+			document.getElementById("name").value=name;
+			document.getElementById("price").value=price;
+			document.getElementById("qty").value=qty;
+		};
 
 
 
 		product.prototype.productsInputGetIds = function() {
-												this.input1 = document.getElementById("name").value;;
-												this.input2 = document.getElementById("price").value;
-												this.input3 = document.getElementById("qty").value;
+			this.input1 = document.getElementById("name").value;;
+			this.input2 = document.getElementById("price").value;
+			this.input3 = document.getElementById("qty").value;
 
-												return {name:this.input1, price:this.input2, qty:this.input3};
-												};	
+			return {name:this.input1, price:this.input2, qty:this.input3};
+		};	
 
 
 
@@ -111,27 +110,27 @@
 		elementEnableDisable.prototype.enable = function() {
 												//console.log("enable");	
 												document.getElementById(this.id).disabled=false;
-												}; 		
+											}; 		
 
-		elementEnableDisable.prototype.disable = function() {
+											elementEnableDisable.prototype.disable = function() {
 												//console.log("disable");	
 												document.getElementById(this.id).disabled=true;	
-												};																									
+											};																									
 
 
-				function addQty()
-				{
-					var qty = document.getElementById('qty').value ;
-					document.getElementById('qty').value = parseInt(qty) + 1;
-					
-				}
+											function addQty()
+											{
+												var qty = document.getElementById('qty').value ;
+												document.getElementById('qty').value = parseInt(qty) + 1;
 
-				function subQty()
-				{
-					var qty = document.getElementById('qty').value ;
-					if(qty!=1)
-					document.getElementById('qty').value = parseInt(qty) - 1;
-				}
+											}
+
+											function subQty()
+											{
+												var qty = document.getElementById('qty').value ;
+												if(qty!=1)
+													document.getElementById('qty').value = parseInt(qty) - 1;
+											}
 
 
 				//{change: function (){console.log('test');}}
@@ -142,13 +141,13 @@
 					{
 						for( eventName in eventObj)
 						{
-						if (eventObj.hasOwnProperty(eventName)) 
-						add.addEventListener(eventName, eventObj[eventName]);	
+							if (eventObj.hasOwnProperty(eventName)) 
+								add.addEventListener(eventName, eventObj[eventName]);	
 						}
 					}
 				}
 
-		
+
 				/*function test()
 				{
 					console.log("hello");
@@ -177,7 +176,7 @@
 
 				createOptions(1,testData1,{change: function (){console.log('Items');}});
 				createOptions(2,testData2,{change: function (){console.log('test');}}); 
-*/
+				*/
 
 				//var p = new product();
 				//p.renderProductDetails();
@@ -190,131 +189,130 @@
 				//e.enable();
 
 
-			function cartTemplate()
-			{
+				function cartTemplate()
+				{
 
-				this.groceryData="";
-				this.beverageData="";	
-				this.gtotal = "";
+					this.groceryData="";
+					this.beverageData="";	
+					this.gtotal = "";
 
-			}
+				}
 
-			cartTemplate.prototype = {
+				cartTemplate.prototype = {
 
 
 					renderTemplate : function(){
 
-									groceryData	= createElement("div", cartContainer, {id:"g1", style:"border-Bottom:1px solid; border:1px solid red"});
-									createElement("div", groceryData, {label:"Grocery"});
-									var gLabel1 = createElement("div", groceryData, {style: "border-Bottom:2px solid"});
-									createElement("span", gLabel1,  {style:"margin-Left:12%", label:"Id"});
-									createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Name"});
-									createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Price"});
-									createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"QTY"});
-									createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Amount"});
+						groceryData	= createElement("div", cartContainer, {id:"g1", style:"border-Bottom:1px solid; border:1px solid red"});
+						createElement("div", groceryData, {label:"Grocery"});
+						var gLabel1 = createElement("div", groceryData, {style: "border-Bottom:2px solid"});
+						createElement("span", gLabel1,  {style:"margin-Left:12%", label:"Id"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Name"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Price"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"QTY"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Amount"});
 
 
-									 beverageData	= createElement("div", cartContainer, {id:"g2", style:"border:1px solid blue"} );
+						beverageData	= createElement("div", cartContainer, {id:"g2", style:"border:1px solid blue"} );
 
-									createElement("div", beverageData, {label:"Beverage"});
-									var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
-									createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
-									createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
-									createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Price"});
-									createElement("span", gLabel2, {style:"margin-Left:8%",  label:"QTY"});
-									createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Amount"});
-									gtotal = createElement("div", cartContainer, {id:"gtotal"});
+						createElement("div", beverageData, {label:"Beverage"});
+						var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
+						createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Price"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"QTY"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Amount"});
+						gtotal = createElement("div", cartContainer, {id:"gtotal"});
 
-									},
+					},
 
 
 					cartContainerClear : function() {
 
-										document.getElementById('g1').innerHTML="";
-										createElement("div", groceryData, {label:"Grocery"});
-										var gLabel1 = createElement("div", groceryData, {style: "border-Bottom:2px solid"});
-										createElement("span", gLabel1,  {style:"margin-Left:12%", label:"Id"});
-										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Name"});
-										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Price"});
-										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"QTY"});
-										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Amount"});
+						document.getElementById('g1').innerHTML="";
+						createElement("div", groceryData, {label:"Grocery"});
+						var gLabel1 = createElement("div", groceryData, {style: "border-Bottom:2px solid"});
+						createElement("span", gLabel1,  {style:"margin-Left:12%", label:"Id"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Name"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Price"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"QTY"});
+						createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Amount"});
 
-										document.getElementById('g2').innerHTML="";
-										createElement("div", beverageData, {label:"Beverage"});
-										var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
-										createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
-										createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
-										createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Price"});
-										createElement("span", gLabel2, {style:"margin-Left:8%",  label:"QTY"});
-										createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Amount"});
+						document.getElementById('g2').innerHTML="";
+						createElement("div", beverageData, {label:"Beverage"});
+						var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
+						createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Price"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"QTY"});
+						createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Amount"});
 
-										document.getElementById("gtotal").innerHTML="";
-										},
+						document.getElementById("gtotal").innerHTML="";
+					},
 
 
 
 					groceryItemDetails : function(Id, Name, Price, Qty, Amount) {
 
-										var gdata= createElement("div", groceryData);
-										createElement("span", gdata,  {style:"margin-Left:12%", label: Id });
-										createElement("span", gdata,  {style:"margin-Left:10%", label: Name });
-										createElement("span", gdata,  {style:"margin-Left:10%", label: Price });
-										createElement("span", gdata,  {style:"margin-Left:12%", label: Qty });
-										createElement("span", gdata,  {style:"margin-Left:12%", label: Amount });
-										},
+						var gdata= createElement("div", groceryData);
+						createElement("span", gdata,  {style:"margin-Left:12%", label: Id });
+						createElement("span", gdata,  {style:"margin-Left:10%", label: Name });
+						createElement("span", gdata,  {style:"margin-Left:10%", label: Price });
+						createElement("span", gdata,  {style:"margin-Left:12%", label: Qty });
+						createElement("span", gdata,  {style:"margin-Left:12%", label: Amount });
+					},
 
 
 					groceryTextboxes : function(discount, tax, totalAmount){
 
-										createElement("span", groceryData, {label:"Discount(%)"} );	
-										createElement("input", groceryData,{type:"text", readOnly:"true", value:discount, style:"width:4em"});
+						createElement("span", groceryData, {label:"Discount(%)"} );	
+						createElement("input", groceryData,{type:"text", readOnly:"true", value:discount, style:"width:4em"});
 
-										createElement("span", groceryData, {label:"Tax(%)" });
-										createElement("input", groceryData, {type:"text", readOnly:"true", value:tax, style:"width:4em"} );
+						createElement("span", groceryData, {label:"Tax(%)" });
+						createElement("input", groceryData, {type:"text", readOnly:"true", value:tax, style:"width:4em"} );
 
-										createElement("span", groceryData, {label:"Amount(Rs.)" });
-										createElement("input", groceryData, {type:"text", readOnly:"true", value:totalAmount, style:"width:4em"} );		
-										},
+						createElement("span", groceryData, {label:"Amount(Rs.)" });
+						createElement("input", groceryData, {type:"text", readOnly:"true", value:totalAmount, style:"width:4em"} );		
+					},
 
 
 
 					beverageItemDetails : function(Id, Name, Price, Qty, Amount) {
 
-										var bdata= createElement("div", beverageData);
-										createElement("span", bdata,  {style:"margin-Left:12%", label:Id} );
-										createElement("span", bdata,  {style:"margin-Left:10%", label:Name} );
-										createElement("span", bdata,  {style:"margin-Left:10%", label:Price });
-										createElement("span", bdata,  {style:"margin-Left:12%", label: Qty } );
-										createElement("span", bdata,  {style:"margin-Left:12%", label: Amount });
-										}, 
+						var bdata= createElement("div", beverageData);
+						createElement("span", bdata,  {style:"margin-Left:12%", label:Id} );
+						createElement("span", bdata,  {style:"margin-Left:10%", label:Name} );
+						createElement("span", bdata,  {style:"margin-Left:10%", label:Price });
+						createElement("span", bdata,  {style:"margin-Left:12%", label: Qty } );
+						createElement("span", bdata,  {style:"margin-Left:12%", label: Amount });
+					}, 
 
-							
+
 					beverageTextboxes : function(discount, tax, addTax ,totalAmount) {
 
-										createElement("span", beverageData, {label:"Discount(%)"} );	
-										createElement("input", beverageData,{type:"text", readOnly:"true", value:discount, style:"width:4em"});
+						createElement("span", beverageData, {label:"Discount(%)"} );	
+						createElement("input", beverageData,{type:"text", readOnly:"true", value:discount, style:"width:4em"});
 
-										createElement("span", beverageData, {label:"Tax(%)" });
-										createElement("input", beverageData, {type:"text", readOnly:"true", value:tax, style:"width:4em"} );
+						createElement("span", beverageData, {label:"Tax(%)" });
+						createElement("input", beverageData, {type:"text", readOnly:"true", value:tax, style:"width:4em"} );
 
-										createElement("span", beverageData, {lable:"Add. Tax(%)"} );
-										createElement("input", beverageData, {type:"text", readOnly:"true", value:addTax, style:"width:2em"}, {} );
+						createElement("span", beverageData, {lable:"Add. Tax(%)"} );
+						createElement("input", beverageData, {type:"text", readOnly:"true", value:addTax, style:"width:2em"}, {} );
 
-										createElement("span", beverageData, {label:"Amount(Rs.)" });
-										createElement("input", beverageData, {type:"text", readOnly:"true", value:totalAmount, style:"width:4em"} );		
-										},
+						createElement("span", beverageData, {label:"Amount(Rs.)" });
+						createElement("input", beverageData, {type:"text", readOnly:"true", value:totalAmount, style:"width:4em"} );		
+					},
 
-							
+
 					grandTotal : function(allTotal) {
 						
-								createElement("input", gtotal, {type:"text", readOnly:"true", value:allTotal, style:"float:right"});
-								createElement("span", gtotal, {style:"float:right; marginRight:2%;", label:"Grand Total"});
-								createElement("input", gtotal, {type:"submit", value:"Check Out", id:"checkoutButton", style:"float:left"} );	
-								}									
+						createElement("input", gtotal, {type:"text", readOnly:"true", value:allTotal, style:"float:right"});
+						createElement("span", gtotal, {style:"float:right; marginRight:2%;", label:"Grand Total"});
+						createElement("input", gtotal, {type:"submit", value:"Check Out", id:"checkoutButton", style:"float:left"} );	
+					}									
 
 
-					}
-
+				} // end of cartTemplate prototype;
 
 
 					/*
@@ -335,9 +333,17 @@
 						a.beverageTextboxes(5,2,1 ,700);
 
 						a.grandTotal(100);
-					*/
+						*/
 
-					
+
+
+
+		function productInfoTemplate()
+		{
+
+		}					
+
+
 					var productOptionData = new product();
 					var  carttemplate= new cartTemplate();
 					var KEY = "";
