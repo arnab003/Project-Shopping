@@ -53,6 +53,10 @@
 
 		}
 
+		function selectedElement(id){
+		return document.getElementById(id).options[document.getElementById(id).selectedIndex];
+		}
+
 
 		function product(name, price, qty) 
 		{	
@@ -107,7 +111,7 @@
 				function subQty()
 				{
 					var qty = document.getElementById('qty').value ;
-					if(qty!=0)
+					if(qty!=1)
 					document.getElementById('qty').value = parseInt(qty) - 1;
 				}
 
@@ -192,7 +196,7 @@
 
 									 beverageData	= createElement("div", cartContainer, {id:"g2", style:"border:1px solid blue"} );
 
-									createElement("div", beverageData, {}, {}, {}, "Beverage");
+									createElement("div", beverageData, {label:"Beverage"});
 									var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
 									createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
 									createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
@@ -215,7 +219,8 @@
 										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"QTY"});
 										createElement("span", gLabel1,  {style:"margin-Left:8%",  label:"Amount"});
 
-										createElement("div", beverageData, {}, {}, {}, "Beverage");
+										document.getElementById('g2').innerHTML="";
+										createElement("div", beverageData, {label:"Beverage"});
 										var gLabel2= createElement("div", beverageData, {}, {borderBottom:"2px solid"}, {});
 										createElement("span", gLabel2, {style:"margin-Left:12%", label:"Id"});
 										createElement("span", gLabel2, {style:"margin-Left:8%",  label:"Name"});
@@ -230,7 +235,7 @@
 
 					groceryItemDetails : function(Id, Name, Price, Qty, Amount) {
 
-										var gdata= createElement("div", groceryData, {}, {}, {});
+										var gdata= createElement("div", groceryData);
 										createElement("span", gdata,  {style:"margin-Left:12%", label: Id });
 										createElement("span", gdata,  {style:"margin-Left:10%", label: Name });
 										createElement("span", gdata,  {style:"margin-Left:10%", label: Price });
@@ -255,7 +260,7 @@
 
 					beverageItemDetails : function(Id, Name, Price, Qty, Amount) {
 
-										var bdata= createElement("div", beverageData, {}, {}, {});
+										var bdata= createElement("div", beverageData);
 										createElement("span", bdata,  {style:"margin-Left:12%", label:Id} );
 										createElement("span", bdata,  {style:"margin-Left:10%", label:Name} );
 										createElement("span", bdata,  {style:"margin-Left:10%", label:Price });
@@ -283,7 +288,7 @@
 					grandTotal : function(allTotal) {
 						
 								createElement("input", gtotal, {type:"text", readOnly:"true", value:allTotal, style:"float:right"});
-								createElement("span", gtotal, {}, {float:"right", marginRight:"2%", label:"Grand Total"});
+								createElement("span", gtotal, {style:"float:right; marginRight:2%;", label:"Grand Total"});
 								createElement("input", gtotal, {type:"submit", value:"Check Out", id:"checkoutButton", style:"float:left"} );	
 								}									
 
@@ -321,6 +326,7 @@
 					KEY = core.getKeys("suvradip"); 
 					var out = core.setLib(KEY, "createElement", createElement);
 					core.setLib(KEY, "createOptions", createOptions);
+					core.setLib(KEY, "selectedElement", selectedElement);
 					core.setLib(KEY, "productOptionData", productOptionData);
 					core.setLib(KEY, "AddDataEventLister", AddDataEventLister);
 					core.setLib(KEY, "cartTemplate", carttemplate);		
