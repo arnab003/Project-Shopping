@@ -178,7 +178,6 @@
 		var out=core.setLib(KEY, "InventoryItems", InventoryItems);
 		core.setLib(KEY,"grocery",grocery);
 		core.setLib(KEY,"beverages",beverages);
-		console.log(out);
 		PopulateList();
 
 	};
