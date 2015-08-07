@@ -1,32 +1,41 @@
-(function wrapBags(){
-	
-	var Inventory = core.getLib("InventoryItems");
-	var productOptionData =	core.getLib("productOptionData");
+(function WrapBags(){
+	//"use strict";
+	// var Inventory = core.getLib("InventoryItems");
+	var inventory = core.getLib("InventoryItems"),
+	elementEnableDisable = core.getLib("elementEnableDisable"),
+	Inventory = new inventory(),
+	productOptionData =	core.getLib("productOptionData"),
+	AddDataEventLister = core.getLib("AddDataEventLister"),
+	selectedElement = core.getLib("selectedElement"),
+	groceryBag = new Bag(),
+	beverageBag = new Bag(),
+	obj= {
+		"grocery": groceryBag.selectedData,
+		"bev" : beverageBag.selectedData
+	},
+	selectedData = [];
 
-	//debugger;
+	
+	//First time creation of the template design with blank input textboxes.
+	productOptionData.renderProductDetails();
+
 	/*function AddDataEventLister(tagId, addFucnctionReferece, event)
 	{
 		var add=document.getElementById(tagId);
 		add.addEventListener(event, addFucnctionReferece);
 	}
-	*/
-	var groceryBag = new bag();
-	var beverageBag = new bag();
-	var obj= {
-		"grocery": groceryBag.selectedData,
-		"bev" : beverageBag.selectedData
-	}, flag=0;
+	*/	
 	
-	var AddDataEventLister = core.getLib("AddDataEventLister");
 	/*{change: function (){console.log('test');}}*/
 
+	//Adding an event Listener to trigger when the first dropdown gets changed.
 	AddDataEventLister("category",{change: changeSelection} );
 
-	function selectedElement(id){
-		return document.getElementById("items").options[document.getElementById("items").selectedIndex];
-	}
+	/*function selectedElement(id){
+		return document.getElementById(id).options[document.getElementById(id).selectedIndex];
+	}*/
 
-	function update(name,price,quantity){
+	/*function update(name,price,quantity){
 		if(quantity !== "undefined"){
 			document.getElementById("qty").value = quantity;	
 		}
@@ -37,7 +46,7 @@
 			document.getElementById("price").value = price;	
 		}
 		
-	}
+	}*/
 
 	// function productOptionData(name,price,quantity){
 	// 	if(typeof quantity === "undefined"){
@@ -48,28 +57,38 @@
 	// 	document.getElementById("qty").value = quantity;
 	// }
 
+	//Listened to when selection of a dropdown is changed.
 	function changeSelection(){
-
 		
-		
-		var id = selectedElement("items").id;
-		var quantity = 0;
-		
+		var add_Button = new elementEnableDisable('add');
 
+		if(selectedElement("category").value === "Select Category"){
+			//If "Select Category is selected in the dropdown, then the input boxes gets blank."
+			productOptionData.productInputSet("","","");
+			add_Button.disable();
+			return true;
+		}
+		var id = selectedElement("items").id,
+		quantity = 1,
+		name = Inventory.getItemById(id).getName(),
+		price = Inventory.getItemById(id).getPrice(),
+		selectedData = [];
 
-		name = Inventory.getItemById(id).getName();
-		price = Inventory.getItemById(id).getPrice();
+		add_Button.enable();
 
-		if(flag === 0){
+		/*if(flag === 0){
 			productOptionData(name,price,quantity);
 			flag=1;
 		}
 		else
-			update(name,price,quantity);
+			update(name,price,quantity);	
+		*/
 
-		
+		//The input text boxes are filled with name of the item selected and displays its corresponding price and a default falue of 1. 
+		productOptionData.productInputSet(name,price,quantity);
 
-		if(selectedElement("category").value == 'grocery'){
+		//Event Listeners are attached according to the selection of categories.
+		if(selectedElement("category").value == "grocery"){
 			// AddDataEventLister("items",groceryBag.change,"change");
 			AddDataEventLister("items",{change: groceryBag.change });
 			//AddDataEventLister("add",groceryBag.add,"click");
@@ -83,75 +102,95 @@
 			AddDataEventLister("add",{click : beverageBag.add});
 			selectedData = obj.bev;
 		}
+		//Iteration is done to check for the recurrence of the selection made.If any, updates are made.
 		for(var keys in selectedData)
 		{
 			if(selectedData[keys].id == id)
 			{
 				quantity = selectedData[keys].quantity;
-				update(name,price,quantity);
-				break;
+				//update(name,price,quantity);
+				productOptionData.productInputSet(name,price,quantity);
+				//break;
 			}
 		}
-	
+
 		//productOptionData(name,price,quantity);
 	}
 
-	function bag()
+	function Bag()
 	{
 		this.selectedData = []; 
 
-		var c=new cart();
+		var cart=core.getLib("cart");
 
+		//Function to be listened when the Add button is pressed
 		this.add= function()
 		{
+			//var upperLimit, lowerLimit;
+			if(selectedElement("category").value === "grocery"){
+				selectedData = obj.grocery;
+				// upperLimit = 6;
+				// lowerLimit = 2;
+			}
+			else{
+				selectedData = obj.bev;
+				// upperLimit = 4;
+				// lowerLimit = 2;
+			}
 			var flag=0;
-			var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
-			for(var keys in this.selectedData)
+			var id = selectedElement("items").id;
+			for(var keys in selectedData)
 			{
-				if(this.selectedData[keys].id == id)
+				if(selectedData[keys].id == id)
 				{
-					this.selectedData[keys].quantity = document.getElementById("qty").value; 
-					flag=1;
+					// total = document.getElementById("qty").value + this.calculate_total_item(selectedData);
+					// if(total >= lowerLimit && total <= upperLimit){
+						
+					//Obtain the values in the input boxes. productsInputGetIds() returns an object that contains all the required values.
+					selectedData[keys].quantity = productOptionData.productsInputGetIds().qty; 
+					flag=1;	
+					//}
+					/*else{
+						alert("Sorry your bag is already filled! Please empty some of your cart before checkout");
+					}*/
+					
 				}
 			}
-
-			if(flag == 0)
+			//flag is used to check if the data selected is not chosen before.
+			if(flag === 0)
 			{
 				var newData = {};
-
-				
 				newData.name = Inventory.getItemById(id).getName();
 				newData.id = id;
 				newData.price = Inventory.getItemById(id).getPrice();
-				newData.quantity = document.getElementById("qty").value;
+				newData.quantity = productOptionData.productsInputGetIds().qty;
 				
-				if(typeof this.selectedData === "undefined")
-					this.selectedData = [];
-				this.selectedData.push(newData);
+				if(typeof selectedData === "undefined")
+					selectedData = [];
+				//NewData is pushed to the selected Data array.
+				selectedData.push(newData);
 			}
-			if(document.getElementById("category").options[document.getElementById("category").selectedIndex].value == 'grocery'){
-				obj.grocery = this.selectedData;
-			}
-			else{
-				obj.bev = this.selectedData;
-			}
-			console.log(obj);
 			
-			c.addBagInCart(obj);
-			c.calculateAmount();
-		}
+			//console.log(obj);
+			cart.addBagInCart(obj);
+			cart.calculateAmount();
+		};
 
-
+		//Triggered when the second dropdown value gets changed.
 		this.change = function()
 		{
-			if(document.getElementById("category").options[document.getElementById("category").selectedIndex].value == 'grocery'){
+			var id = selectedElement("items").id,
+			name = Inventory.getItemById(id).getName(),
+			price = Inventory.getItemById(id).getPrice(),
+			quantity=1;
+
+			if(selectedElement("category").value === "grocery"){
 				selectedData = obj.grocery;
 			}
 			else{
 				selectedData = obj.bev;
 			}
-			var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
-			var flag = 0, quantity=0;	
+
 			for(var keys in selectedData)
 			{
 				if(selectedData[keys].id == id)
@@ -160,9 +199,8 @@
 					
 				}
 			}
-			name = Inventory.getItemById(id).getName();
-			price = Inventory.getItemById(id).getPrice();
-			update(name,price,quantity);
+			
+			productOptionData.productInputSet(name,price,quantity);
 
 			/*var id = document.getElementById("items").options[document.getElementById("items").selectedIndex].id;
 			
@@ -170,7 +208,16 @@
 			price = Inventory.getItemById(id).getPrice();
 			// productOptionData(name,price,quantity);
 			*/
-		}
+		};
+
+		/*this.calculate_total_item = function(selectedData){
+			var total = 0;
+			for(var keys in selectedData){
+				total = total + selectedData.quantity;
+			}
+			alert(total);
+			return total;
+		}*/
 	}	
 	
 })();
