@@ -98,7 +98,25 @@
 												this.input3 = document.getElementById("qty").value;
 
 												return {name:this.input1, price:this.input2, qty:this.input3};
-												};									
+												};	
+
+
+
+		function elementEnableDisable(id)
+		{
+
+			this.id=id;
+		}										
+
+		elementEnableDisable.prototype.enable = function() {
+												console.log("enable");	
+												document.getElementById(this.id).disabled=false;
+												}; 		
+
+		elementEnableDisable.prototype.disable = function() {
+												console.log("disable");	
+												document.getElementById(this.id).disabled=true;	
+												};																									
 
 
 				function addQty()
@@ -159,15 +177,17 @@
 
 				createOptions(1,testData1,{change: function (){console.log('Items');}});
 				createOptions(2,testData2,{change: function (){console.log('test');}}); 
-
-
-				var p = new product();
-				p.renderProductDetails();
-				p.productInputSet("rice",200,4);
-				var t = p.productsInputGetId();
-				console.log(t);
-				
 */
+
+				//var p = new product();
+				//p.renderProductDetails();
+				//p.productInputSet("rice",200,4);
+				//var t = p.productsInputGetId();
+				//console.log(t);
+
+				//var e = new elementEnableDisable('add');
+				//e.disable();
+				//e.enable();
 
 
 			function cartTemplate()
@@ -318,7 +338,7 @@
 					*/
 
 					
-					var productOptionData = new product();
+					/*var productOptionData = new product();
 					var  carttemplate= new cartTemplate();
 					var KEY = "";
 					(function()
@@ -331,8 +351,8 @@
 					core.setLib(KEY, "AddDataEventLister", AddDataEventLister);
 					core.setLib(KEY, "cartTemplate", carttemplate);		
 
-					console.log(out);
-					})();
+					//console.log(out);
+					})();*/
 
 
 
