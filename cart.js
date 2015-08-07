@@ -1,7 +1,6 @@
 (function() {
 
-	function Cart()
-	{
+	function Cart()	{
 		this.final1=0;
 		this.final2=0;
 		this.flag=false;
@@ -19,12 +18,11 @@
 
 				var a=core.getLib("cartTemplate");
 				
-				if (!this.flag) 
-					{
+				if (!this.flag)	{
 						this.flag=true;
 						a.renderTemplate();
-					}else
-					{
+					}
+					else {
 						a.cartContainerClear();
 					}			
 				
@@ -32,25 +30,26 @@
 				var totalB=0;
 				var subkey;
 
-				for(var key in ob1)
-				{
-					if(key=="grocery" && ob1[key]!==null)
-					{
-						for(subkey in ob1[key])
-						{
+				for(var key in ob1)	{
+
+					if(key=="grocery" && ob1[key]!==null) {
+
+						for(subkey in ob1[key])	{
+
 							a.groceryItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 							totalG=totalG+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 						}
 					}
-					if(key=="bev" && ob1[key]!==null)
-					{
-						for(subkey in ob1[key])
-						{
+					if(key=="bev" && ob1[key]!==null) {
+
+						for(subkey in ob1[key])	{
+
 							a.beverageItemDetails(ob1[key][subkey].id,ob1[key][subkey].name,ob1[key][subkey].price,ob1[key][subkey].quantity,(ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 							totalB=totalB+((ob1[key][subkey].price)*(ob1[key][subkey].quantity));
 						}
 					}				
-				}
+				}//end of for loop
+				
 				var disPrice;
 
 				disPrice=totalG-((5/100)*totalG);
@@ -61,12 +60,12 @@
 				this.final2=Math.round(disPrice+((btax.getVat()/100)*disPrice));
 				this.final2=Math.round(this.final2+((btax.getAdditionalVat()/100)*this.final2));
 				a.beverageTextboxes(5, btax.getVat(), btax.getAdditionalVat(), this.final2);
-			},
+		},
 
-			calculateAmount : function() {
-				var a=core.getLib("cartTemplate");
-				a.grandTotal(this.final1+this.final2);
-			}
+		calculateAmount : function() {
+			var a=core.getLib("cartTemplate");
+			a.grandTotal(this.final1+this.final2);
+		}
 			
 	};//end of proto
 
