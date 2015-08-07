@@ -1,7 +1,6 @@
 function core() 
 {
-	var i=0;
-	var lib={};
+	var i=0,lib={};
 	//attaching immutable properties to core
 	Object.defineProperty(core, 'getKeys', 
 		{
@@ -18,8 +17,7 @@ function core()
 		});
 
 	//function for genrating unique key
-	function getKeys(name)
-		{
+	function getKeys(name) {
 	
 			return (function(x)
 				{
@@ -27,8 +25,7 @@ function core()
 				})(new Date().getTime()+i++);
 		}
 	//function for registering attributes from various modules
-	function setLib(key,name,value)
-	{
+	function setLib(key,name,value) {
 			if(typeof lib[name]=='undefined')
 				{
 						lib[name]=[key,value];
@@ -48,8 +45,7 @@ function core()
 			
 	}
 	//function for getting values of various attributes
-	function getLib(name)
-	{
+	function getLib(name) {
 		if(typeof lib[name]=='undefined')
 				{
 						return "attribute not found";
