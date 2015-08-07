@@ -102,7 +102,7 @@
 	{
 		this.selectedData = []; 
 
-		var cart=core.getLib("cart");
+		var c=core.getLib("cart");
 
 		this.add= function()
 		{
@@ -151,8 +151,8 @@
 			}
 			
 			console.log(obj);
-			cart.addBagInCart(obj);
-			cart.calculateAmount();
+			c.addBagInCart(obj);
+			c.calculateAmount();
 		};
 
 
