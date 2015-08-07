@@ -338,7 +338,7 @@
 					*/
 
 					
-					/*var productOptionData = new product();
+					var productOptionData = new product();
 					var  carttemplate= new cartTemplate();
 					var KEY = "";
 					(function()
@@ -352,7 +352,7 @@
 					core.setLib(KEY, "cartTemplate", carttemplate);		
 
 					//console.log(out);
-					})();*/
+					})();
 
 
 
